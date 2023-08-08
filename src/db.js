@@ -4,10 +4,10 @@ const { Sequelize } = require("sequelize");
 const fs = require('fs');
 const path = require('path');
 const {
-  DB_USER, DB_PASSWORD, DB_HOST,
+  DB_USER, DB_PASSWORD, DB_HOST,DATABASE_REMOTE
 } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/sustainable_ecommerce`, {
+const sequelize = new Sequelize(`${DATABASE_REMOTE}`, {
   logging: false, // Desactivamos el registro de consultas SQL para no mostrar mensajes innecesarios en la consola.
   native: false, // Desactivamos el uso del cliente nativo de PostgreSQL para evitar posibles errores en algunos entornos.
 });
