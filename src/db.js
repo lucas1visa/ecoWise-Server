@@ -10,6 +10,12 @@ const {
 const sequelize = new Sequelize(`${DATABASE_REMOTE}`, {
   logging: false, // Desactivamos el registro de consultas SQL para no mostrar mensajes innecesarios en la consola.
   native: false, // Desactivamos el uso del cliente nativo de PostgreSQL para evitar posibles errores en algunos entornos.
+  dialectOptions:{
+    ssl:{
+      require:true,
+      rejectUnauthorized:false
+    }
+  }
 });
 const basename = path.basename(__filename);
 
