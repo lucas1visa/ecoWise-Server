@@ -4,14 +4,16 @@ const bcrypt = require("bcrypt")
 const users = async () => {
   try {
     const todosLosUsuarios = await User.findAll({
-      include:{
-        model: Cart,
-        include:Product
-      },
-      include:{
-        model:Favorites,
-        include:Product
-      },
+      include: [
+        {
+          model: Cart,
+          include: [Product],
+        },
+        {
+          model: Favorites,
+          include: [Product],
+        },
+      ],
     });
     return todosLosUsuarios;
   } catch (error) {
