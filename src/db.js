@@ -41,7 +41,6 @@ User.hasMany(Purchase);
 User.hasMany(Sale);
 User.hasMany(Favorite);
 
-
 Product.belongsTo(User);// belongsT: de uno a uno
 Purchase.belongsTo(User);
 Sale.belongsTo(User);
@@ -53,8 +52,10 @@ Product.belongsToMany(Purchase, { through: 'Purchase_Producto' });// belongsToMa
 Purchase.belongsToMany(Product, { through: 'Purchase_Producto' });
 Product.belongsToMany(Category, { through: 'Category_Producto' });
 Category.belongsToMany(Product, { through: 'Purchase_Producto' });
-Cart.belongsToMany(Product, { through: 'Card_Producto' });
-Product.belongsToMany(Cart, { through: 'Card_Producto' });
+Cart.belongsToMany(Product, { through: 'Cart_Producto' });
+Product.belongsToMany(Cart, { through: 'Cart_Producto' });
+Favorite.belongsToMany(Product, { through: 'Favorite_Producto' });
+Product.belongsToMany(Favorite, { through: 'Favorite_Producto' });
 
 
 module.exports = {

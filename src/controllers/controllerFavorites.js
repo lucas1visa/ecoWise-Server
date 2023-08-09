@@ -1,15 +1,10 @@
-const {Favorite} = require("../db")
+const {Favorite, Product} = require("../db")
 
-const createFav = async(name,description,price,image)=>{
+const createFav = async(id,userId)=>{
     try {
-        const ProductFav = await Favorite.findOne({where: {name: name}});
-        if(ProductFav){
-            let FavoriteOne = await Favorite.create({name,description,price,image});
-            return FavoriteOne;
-        }else{
-            throw new Error('Product add favorite has been already');
-        } 
-
+        const newFavorite = Favorite.create(userId)
+        await newFavorite.setProducts(id)
+        return newFavorite
     } catch (error) {
         return error;
     }
