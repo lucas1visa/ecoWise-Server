@@ -2,8 +2,8 @@ const {createFav,delFav,getFav} = require("../controllers/controllerFavorites")
 
 const addFavorites = async(req,res)=>{
     try {
-        let {id,userId} = req.body;
-        let newFav = await createFav(id,userId);
+        let {id,UserId} = req.body;
+        let newFav = await createFav(id,UserId);
         if(newFav){
            return res.status(200).send(`Favorites Add+${newFav}`)
         }

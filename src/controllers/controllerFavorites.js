@@ -1,8 +1,8 @@
 const {Favorite, Product} = require("../db")
 
-const createFav = async(id,userId)=>{
+const createFav = async(id,UserId)=>{
     try {
-        const newFavorite = Favorite.create(userId)
+        const newFavorite = await Favorite.create({UserId})
         await newFavorite.setProducts(id)
         return newFavorite
     } catch (error) {

@@ -39,11 +39,11 @@ const { User, Sale, Product, Purchase , Category, Favorite, Cart} = sequelize.mo
 User.hasMany(Product);// hasMany: de uno a muchos
 User.hasMany(Purchase);
 User.hasMany(Sale);
-User.hasMany(Favorite);
 
 Product.belongsTo(User);// belongsT: de uno a uno
 Purchase.belongsTo(User);
 Sale.belongsTo(User);
+User.hasMany(Favorite);
 Favorite.belongsTo(User);
 User.hasMany(Cart);
 Cart.belongsTo(User)
