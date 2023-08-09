@@ -22,13 +22,12 @@ const postMercadopago=(req, res) => {
       },
     ],
     back_urls: {
-      success: "https://ecowise-web-site.vercel.app/",
-      failure: "https://ecowise-web-site.vercel.app/",
-      pending: "https://ecowise-web-site.vercel.app/",
+      success: "https://ecowise-web-site.vercel.app",
+      failure: "https://ecowise-web-site.vercel.app",
+      pending: "",
     },
     auto_return: "approved",
   };
-
   mercadopago.preferences
     .create(preference)
     .then(function (response) {
@@ -39,6 +38,5 @@ const postMercadopago=(req, res) => {
     .catch(function (error) {
       console.log(error);
     });
-}
-;
+};
 module.exports = { postMercadopago,getMercadopago}
