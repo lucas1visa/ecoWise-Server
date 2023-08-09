@@ -22,9 +22,9 @@ const postMercadopago=(req, res) => {
       },
     ],
     back_urls: {
-      success: "http://localhost:5173/home",
-      failure: "http://localhost:5173",
-      pending: "",
+      success: "https://ecowise-web-site.vercel.app/",
+      failure: "https://ecowise-web-site.vercel.app/",
+      pending: "https://ecowise-web-site.vercel.app/",
     },
     auto_return: "approved",
   };
