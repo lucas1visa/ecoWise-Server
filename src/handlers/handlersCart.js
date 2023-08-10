@@ -28,4 +28,15 @@ const {getcarrito,crearCart,updateCarrito}=require("../controllers/controllersCa
             res.status(500).send("Hubo un error");
         }
     };
-    module.exports = { putCart,postCart,getCart}
+
+    const deleteProdCart = async (req, res) => {
+        const { id } = req.params;
+        const deleteProdCarrito = await delet(id);
+        try {
+            res.status(200).send(`Se elimino el producto con id: ${id} con exito`)
+        } catch (error) {
+            res.status(500).send('Ocurrio un error al querer eliminar el producto del carrito')
+        }
+    }
+
+    module.exports = { putCart,postCart,getCart, deleteProdCart}
