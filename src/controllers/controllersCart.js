@@ -50,10 +50,10 @@ const updateCarrito = async (  id, price, quantityAvailable, image)=>{
       }
 }
 
-const deletCart = async (Cartid) => {
+const deletCart = async (id) => {
 
   try {
-    const getDeleteCart = await User.findByPk(Cartid);
+    const getDeleteCart = await Cart.findByPk(id);
 
     if (getDeleteCart) {
       getDeleteCart.destroy();
