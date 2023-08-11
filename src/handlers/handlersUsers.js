@@ -1,5 +1,5 @@
 const { users, crearUsers, update, delet } = require("../controllers/controllerUsers")
-
+const transporter = require("../utils/mailer")
 
 const getUsers = async (req, res) => {
     try {
