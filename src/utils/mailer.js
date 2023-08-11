@@ -9,9 +9,7 @@ const transporter = nodemailer.createTransport({
         user: 'eco.wise.commerce@gmail.com',
         pass: 'pwrhqcsdoxiqhrvp'
     },
-    tls: {
-        rejectUnauthorized: false // Desactivar la validación del certificado en TLS
-    }
+    
 
 });
 

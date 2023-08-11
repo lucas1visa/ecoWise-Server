@@ -22,15 +22,34 @@ const getUsers = async (req, res) => {
 
 
 
-const postUsers = async (req, res) => {
-    const { name, surname, email, phone, password } = req.body
+  const postUsers = async (req, res) => {
+    const { name, surname, email, phone, password } = req.body;
     try {
-        const crearUsuario = await crearUsers(name, surname, email, phone, password)
-        res.status(200).send("Usuario creado Correctamente")
+        const crearUsuario =  await crearUsers(name, surname, email, phone, password);
+
+        // Send an email after creating a user
+        const emailInfo = await transporter.sendMail({
+            from: '"ecoWise" <eco.wise.commerce@gmail.com>',
+            to: email,
+            subject: "Welcome to Our App",
+            html: `
+      <p>Hola ${name},</p>
+      <p>¡Bienvenido a ecoWise Commerce! Estamos emocionados de tenerte en nuestra comunidad.</p>
+      <p>Con ecoWise Commerce, tendrás acceso a una variedad de productos y recursos sostenibles.</p>
+      <p>Creemos en generar un impacto positivo en el medio ambiente, y tu apoyo es crucial en nuestro camino.</p>
+      <p>Siéntete libre de explorar nuestra aplicación, conectarte con personas afines y descubrir soluciones amigables con el medio ambiente.</p>
+      <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactar a nuestro equipo de soporte.</p>
+      <p>Gracias por elegir ecoWise Commerce. ¡Juntos podemos crear un futuro más verde!</p>
+      <p>Saludos cordiales,</p>
+      <p>El Equipo de ecoWise</p>
+    `
+        });
+
+        res.status(200).send("Usuario creado Correctamente");
     } catch (error) {
-        res.status(500).send("Error: " + error.message)
+        res.status(500).send("Error: " + error.message);
     }
-}
+};
 
 
 const putUsers = async (req, res) => {
