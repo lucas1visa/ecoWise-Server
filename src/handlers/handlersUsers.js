@@ -35,9 +35,9 @@ const getUsers = async (req, res) => {
             html: `
       <p>Hola ${name},</p>
       <p>¡Bienvenido a ecoWise Commerce! Estamos emocionados de tenerte en nuestra comunidad.</p>
-      <p>Con ecoWise Commerce, tendrás acceso a una variedad de productos y recursos sostenibles.</p>
+      <p>Con ecoWise Commerce, tendrás acceso a una variedad de productos sostenibles.</p>
       <p>Creemos en generar un impacto positivo en el medio ambiente, y tu apoyo es crucial en nuestro camino.</p>
-      <p>Siéntete libre de explorar nuestra aplicación, conectarte con personas afines y descubrir soluciones amigables con el medio ambiente.</p>
+      <p>Siéntete libre de explorar nuestra aplicación y descubrir soluciones amigables con el medio ambiente.</p>
       <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactar a nuestro equipo de soporte.</p>
       <p>Gracias por elegir ecoWise Commerce. ¡Juntos podemos crear un futuro más verde!</p>
       <p>Saludos cordiales,</p>
