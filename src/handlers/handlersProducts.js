@@ -1,5 +1,5 @@
 const { async } = require("rxjs")
-const { products, crearProducts, updateProducts, deletP, searchProductByName, searchProductById, searchProductByCategory } = require("../controllers/controllerProduct")
+const { products, crearProducts, updateProducts, deletP, searchProductByName, searchProductById, searchProductByCategory, crearProductsAdmin } = require("../controllers/controllerProduct")
 
 
 const getProducts = async (req, res) => {
@@ -16,6 +16,28 @@ const getProducts = async (req, res) => {
         res.status(500).send(error)
     }
 }
+
+const postProductAdmin = async (req, res) => {
+    const productData = req.body; // El cuerpo de la solicitud es un objeto con los datos del producto
+    try {
+        await crearProductsAdmin(
+            productData.name,
+            productData.description,
+            productData.price,
+            productData.quantityAvailable,
+            productData.category,
+            productData.image
+        );
+        res.status(200).send("Se registró correctamente el producto.");
+    } catch (error) {
+        console.error("Error al registrar producto:", error);
+        res.status(500).send("Error al registrar producto: " + error.message);
+    }
+};
+
+
+
+
 const postProducts = async (req, res) => {
     const productsArray = req.body; // El cuerpo de la solicitud debe ser un arreglo de objetos
     try {
@@ -91,5 +113,6 @@ module.exports = {
     putProducts,
     deleteProduct,
     getProductById,
-    getProductByCategory
+    getProductByCategory,
+    postProductAdmin
 }
