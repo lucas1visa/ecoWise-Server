@@ -14,5 +14,3 @@ module.exports = (sequelize) => {
     defaultValue: 1,
   },
 })};
-
-
