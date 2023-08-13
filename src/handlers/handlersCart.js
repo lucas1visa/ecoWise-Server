@@ -1,4 +1,4 @@
-const {getcarrito,crearCart,updateCarrito}=require("../controllers/controllersCart")
+const {getcarrito,crearCart,updateCarrito, deletCart}=require("../controllers/controllersCart")
     const getCart = async (req, res) => {
         try {
             const Carito = await getcarrito()
@@ -31,7 +31,7 @@ const {getcarrito,crearCart,updateCarrito}=require("../controllers/controllersCa
 
     const deleteProdCart = async (req, res) => {
         const { id } = req.params;
-        const deleteProdCarrito = await delet(id);
+        const deleteProdCarrito = await deletCart(id);
         try {
             res.status(200).send(`Se elimino el producto con id: ${id} con exito`)
         } catch (error) {
