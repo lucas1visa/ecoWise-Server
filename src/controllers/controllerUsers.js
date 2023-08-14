@@ -94,7 +94,6 @@ const delet = async (id) => {
 
 const deleteLogicalUser= async(userId)=> {//eliminar un usuario
   const user = await User.findByPk(userId);
-  console.log(user.isDeleted)
   if(user.isDeleted){
   user.update({ isDeleted: false });
   }else{
