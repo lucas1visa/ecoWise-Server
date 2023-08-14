@@ -12,9 +12,9 @@ const createToken = async (email, password) => {
         const foundUser = await User.findOne({
             where: {
               email: email,
-              isDelete: false
             }
           });
+          if(foundUser.isDelete === true) throw new Error('Usuario Bloqueado');
         if (foundUser === null) {
             throw new Error('Email not found');
         }
