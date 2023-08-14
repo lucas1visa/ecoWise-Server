@@ -26,7 +26,7 @@ const createToken = async (email, password) => {
         // En caso de encontrar un usuario comparamos la contraseña enviada desde el front
         // con la contraseña (encriptada) de la DB
         const passwordCheck = await bcrypt.compare(password, foundUser.password);
-
+        console.log(passwordCheck)
         if (!passwordCheck) {
             throw new Error('Error Password');
         }
