@@ -6,5 +6,5 @@ routesUsers.post("/" , postUsers)
 routesUsers.get("/assets" , todosLosUsuariosActivos)
 routesUsers.put("/update", putUsers)
 routesUsers.delete("/delete/:id", deleteUsers)
-routesUsers.put("/deleteLogical/:id",deleteLogical)
+routesUsers.put("/deletelogical/:id",deleteLogical)
 module.exports = routesUsers;
