@@ -92,4 +92,16 @@ const delet = async (id) => {
   }
 }
 
-module.exports = { users, crearUsers, update, delet, getUserById };
+const deleteLogicalUser= async(userId)=> {//eliminar un usuario
+  const user = await User.findByPk(userId);
+  if (user) {
+    user.update({ isDeleted: true });
+  }
+}
+const  getAllUsersAssets= async() =>{//consulta de usuarios activos
+  const users = await User.findAll({
+    where: { isDeleted: false },
+  });
+  return users;
+}
+module.exports = { users, crearUsers, update, delet, getUserById,deleteLogicalUser,getAllUsersAssets };

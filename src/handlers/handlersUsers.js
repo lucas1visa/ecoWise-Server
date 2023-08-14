@@ -1,4 +1,4 @@
-const { users, crearUsers, update, delet } = require("../controllers/controllerUsers")
+const { users, crearUsers, update, delet,getAllUsersAssets,deleteLogicalUser } = require("../controllers/controllerUsers")
 const transporter = require("../utils/mailer")
 
 const getUsers = async (req, res) => {
@@ -61,6 +61,16 @@ const putUsers = async (req, res) => {
         res.status(500).send("Hubo un error al actualizar el usuario");
     }
 };
+const deleteLogical =async (req,res) =>{
+  const {id} = req.params
+  try {
+    const delUser = await deleteLogicalUser(id)
+
+    res.status(200).send("Usuario bloqueado correctamente");
+  } catch (error) {
+    
+  }
+}
 
 const deleteUsers = async (req, res) => {
     const { id } = req.params;
@@ -71,5 +81,13 @@ const deleteUsers = async (req, res) => {
         res.status(500).send('Ocurrio un error al querer eliminar un usuario')
     }
 }
+const todosLosUsuariosActivos = async (req, res) => {
+  const getUsers = await getAllUsersAssets();
+  try {
+      res.status(200).send(getUsers)
+  } catch (error) {
+      res.status(500).send('Ocurrio un error al querer traer todos los usuario')
+  }
+}
 
-module.exports = { getUsers, postUsers, putUsers, deleteUsers }
+module.exports = { getUsers, postUsers, putUsers, deleteUsers,deleteLogical,todosLosUsuariosActivos }
