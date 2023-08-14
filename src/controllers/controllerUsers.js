@@ -94,13 +94,11 @@ const delet = async (id) => {
 
 const deleteLogicalUser= async(userId)=> {//eliminar un usuario
   const user = await User.findByPk(userId);
-
-  if (user) {
-    if(user.isDeleted){
-    user.update({ isDeleted: false });
-    }
-    user.update({ isDeleted: true });
-  }
+  console.log(user.isDeleted)
+  if(user.isDeleted){
+  user.update({ isDeleted: false });
+  }else{
+    user.update({ isDeleted: true })}
 }
 const  getAllUsersAssets= async() =>{//consulta de usuarios activos
   const users = await User.findAll({
