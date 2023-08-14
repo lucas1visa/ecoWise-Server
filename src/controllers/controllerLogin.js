@@ -9,7 +9,12 @@ const { KEYWORD_JWT } = process.env;
 const createToken = async (email, password) => {
     try {
         // Buscamos el Usuario por email en nuestra DB
-        const foundUser = await User.findOne({ where: { email: email } });
+        const foundUser = await User.findOne({
+            where: {
+              email: email,
+              isDelete: false
+            }
+          });
         if (foundUser === null) {
             throw new Error('Email not found');
         }
