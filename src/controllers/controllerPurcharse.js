@@ -7,18 +7,19 @@ const postPay = async (payment_id, payment_type, status, userId, quantity, idPro
     if (!product) {
       throw new Error("Producto no encontrado");
     }
-
+    console.log(product)
     const purchase = await Purchase.create({
         payment_id:payment_id,
       payment_type: payment_type,
       status:status,
-      UserId: userId
+      UserId: userId,
+      quantity:quantity
     });
-    const currentQuantity =  await product.quantity;
+    const currentQuantity =  await product.quantityAvailable;
     console.log(currentQuantity)
     const newQuantity = currentQuantity - quantity;
     // Actualizar la cantidad en la entrada existente
-    await product.update({ quantity: newQuantity });
+    await product.update({ quantityAvailable: newQuantity });
     await purchase.setProducts(idProduct)
     return purchase;
   } catch (error) {
