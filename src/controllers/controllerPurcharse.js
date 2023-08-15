@@ -1,5 +1,6 @@
 const { Purchase, Product } = require("../db");
 const postPay = async (payment_id, payment_type, status, userId, quantity, idProduct) => {
+    console.log(userId)
   try {
     const product = await Product.findByPk(idProduct);
 
@@ -8,12 +9,11 @@ const postPay = async (payment_id, payment_type, status, userId, quantity, idPro
     }
 
     const purchase = await Purchase.create({
-      payment_id,
-      payment_type,
-      status,
-      UserId: userId,
+        payment_id:payment_id,
+      payment_type: payment_type,
+      status:status,
+      UserId: userId
     });
-    const purchaseProduct = await purchase.addProduct(product);
     const currentQuantity = purchaseProduct.quantity;
     const newQuantity = currentQuantity - quantity;
     // Actualizar la cantidad en la entrada existente
