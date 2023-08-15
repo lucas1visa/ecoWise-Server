@@ -38,23 +38,34 @@ const getUserById = async (userId) => {
 };
 
 
-const crearUsers = async (name, surname, email, phone, password) => {
+const crearUsers = async (name, surname, email, phone, password, register) => {
   try {
-    // una vez recibida la password al crear el usuario la encryptamos para almacenarla en la DB
-    let hashPassword = bcrypt.hashSync(password, 10)
     // Realizamos la validacion de que 2 usuarios no tengan el mismo email
-    const emailFound = await User.findOne({ where: { email } });
+    const emailFound = await User.findOne({ where: {email: email } });
     if (emailFound) {
       throw new Error('Email already exist');
-    }
-    const nuevoUsuario = await User.create({
-      name,
-      surname,
-      email,
-      phone,
-      password: hashPassword,
-    });
-    return nuevoUsuario;
+    };
+    if(password){
+      // una vez recibida la password al crear el usuario la encryptamos para almacenarla en la DB
+      let hashPassword = bcrypt.hashSync(password, 10);
+      const nuevoUsuario = await User.create({
+        name,
+        surname,
+        email,
+        phone,
+        password: hashPassword,
+      });
+      return nuevoUsuario;
+    } else {
+      const UsuarioTerceros = await User.create({
+        name,
+        surname,
+        email,
+        phone,
+        register
+      })
+      return UsuarioTerceros;
+    };
   } catch (error) {
     console.error("Error al Registrarse:", error);
     return null;

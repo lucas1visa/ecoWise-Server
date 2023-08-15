@@ -17,17 +17,14 @@ module.exports = (sequelize) => {
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
+      unique: true
     },
     phone: {
       type: DataTypes.STRING,
-      allowNull: false,
       unique: true,
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     isAdmin: {
       type: DataTypes.BOOLEAN,
@@ -37,5 +34,9 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    register:{
+      type:DataTypes.STRING,
+      defaultValue: 'ecoWiseDB'
+    }
   });
 };
