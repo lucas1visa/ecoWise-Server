@@ -14,7 +14,7 @@ const createToken = async (email, password) => {
               email: email,
             }
         });
-
+        console.log(foundUser);
         if (!foundUser) {
             throw new Error('Email not found');
         }
