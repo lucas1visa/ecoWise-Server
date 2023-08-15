@@ -37,25 +37,26 @@ sequelize.models = Object.fromEntries(capsEntries);// Convertimos las entradas m
 const { User, Sale, Product, Purchase , Category, Favorite, Cart} = sequelize.models;// Obtenemos los modelos de la base de datos (Country y Activity) a través de la instancia de Sequelize "sequelize"
 
 User.hasMany(Product);// hasMany: de uno a muchos
-User.hasMany(Purchase);
 User.hasMany(Sale);
 
 Product.belongsTo(User);// belongsT: de uno a uno
-Purchase.belongsTo(User);
 Sale.belongsTo(User);
 User.hasMany(Favorite);
 Favorite.belongsTo(User);
 User.hasMany(Cart);
 Cart.belongsTo(User)
 
-Product.belongsToMany(Purchase, { through: 'Purchase_Producto' });// belongsToMany: de muchos a muchos
-Purchase.belongsToMany(Product, { through: 'Purchase_Producto' });
 Product.belongsToMany(Category, { through: 'Category_Producto' });
 Category.belongsToMany(Product, { through: 'Purchase_Producto' });
 Cart.belongsToMany(Product, { through: 'Cart_Producto' });
 Product.belongsToMany(Cart, { through: 'Cart_Producto' });
 Favorite.belongsToMany(Product, { through: 'Favorite_Producto' });
 Product.belongsToMany(Favorite, { through: 'Favorite_Producto' });
+
+Purchase.belongsToMany(Product, { through: 'Purchase_Producto' });
+Product.belongsToMany(Purchase, { through: 'Purchase_Producto' });// belongsToMany: de muchos a muchos
+Purchase.belongsTo(User);
+User.hasMany(Purchase);
 
 
 module.exports = {
