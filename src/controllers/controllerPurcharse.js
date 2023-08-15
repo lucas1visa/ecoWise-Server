@@ -14,10 +14,11 @@ const postPay = async (payment_id, payment_type, status, userId, quantity, idPro
       status:status,
       UserId: userId
     });
-    const currentQuantity = purchaseProduct.quantity;
+    const currentQuantity =  await product.quantity;
+    console.log(currentQuantity)
     const newQuantity = currentQuantity - quantity;
     // Actualizar la cantidad en la entrada existente
-    await purchaseProduct.update({ quantity: newQuantity });
+    await product.update({ quantity: newQuantity });
     await purchase.setProducts(idProduct)
     return purchase;
   } catch (error) {
