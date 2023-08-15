@@ -1,7 +1,7 @@
 const {postPay} = require("../controllers/controllerPurcharse")
 const postPurcharse = async (req, res) => {
-    const {payment_id,payment_type,status} = req.query; 
-    const {quantity,userId,idProduct}= req.body
+    // const {payment_id,payment_type,status} = req.query; 
+    const {quantity,userId,idProduct,payment_id,payment_type,status}= req.body
     console.log(userId,payment_id)
     try {
         result = await postPay(payment_id,payment_type,status,userId,quantity,idProduct)
