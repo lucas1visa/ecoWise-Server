@@ -22,7 +22,7 @@ const postMercadopago=(req, res) => {
       },
     ],
     back_urls: {
-      success: "https://ecowise-web-site.vercel.app/feedback",
+      success: "https://ecowise-web-site.vercel.app",
       failure: "https://ecowise-web-site.vercel.app",
       pending: "",
     },
