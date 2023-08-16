@@ -1,4 +1,4 @@
-const { User,Cart,Product,Favorite } = require("../db");
+const { User,Cart,Product,Favorite,Purchase} = require("../db");
 const bcrypt = require("bcrypt")
 
 const users = async () => {
@@ -13,6 +13,10 @@ const users = async () => {
           model: Favorite,
           include: [Product],
         },
+        {
+          model:  Purchase,
+          include:[Product]
+        }
       ],
     });
     return todosLosUsuarios;
