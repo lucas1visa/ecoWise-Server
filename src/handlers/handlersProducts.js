@@ -60,8 +60,8 @@ const postProducts = async (req, res) => {
 };
 
 const putProducts = async (req, res) => {
-    const { description, price, quantityAvailable, id, image } = req.body;
-    const updateProductos = await updateProducts(id, description, price, quantityAvailable, image)
+    const { price, quantityAvailable, id } = req.body;
+    const updateProductos = await updateProducts(id, price, quantityAvailable)
 
     try {
         res.status(200).send("Producto actualizado correctamente")
