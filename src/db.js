@@ -53,8 +53,9 @@ Product.belongsToMany(Cart, { through: 'Cart_Producto' });
 Favorite.belongsToMany(Product, { through: 'Favorite_Producto' });
 Product.belongsToMany(Favorite, { through: 'Favorite_Producto' });
 
-Purchase.belongsToMany(Product, { through: 'Purchase_Producto' });
-Product.belongsToMany(Purchase, { through: 'Purchase_Producto' });// belongsToMany: de muchos a muchos
+Purchase.belongsToMany(Product, { through: "Purchase_Producto", timestamps: false });
+Product.belongsToMany(Purchase, { through: "Purchase_Producto", timestamps: false });
+
 Purchase.belongsTo(User);
 User.hasMany(Purchase);
 

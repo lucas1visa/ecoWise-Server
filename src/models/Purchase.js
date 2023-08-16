@@ -20,6 +20,10 @@ module.exports = (sequelize) => {
     },
     status: {
       type: DataTypes.STRING,
-    }
-  });
+    },
+    total: {
+      type: DataTypes.INTEGER,
+    },
+  },{
+    timestamps: false,});
 };

@@ -38,5 +38,6 @@ module.exports = (sequelize) => {
       type:DataTypes.STRING,
       defaultValue: 'ecoWiseDB'
     }
-  });
+  },{
+    timestamps: false,});
 };

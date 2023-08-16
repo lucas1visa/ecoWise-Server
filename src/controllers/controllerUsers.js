@@ -14,9 +14,15 @@ const users = async () => {
           include: [Product],
         },
         {
-          model:  Purchase,
-          include:[Product]
-        }
+          model: Purchase,
+          include: [
+            {
+              model: Product,
+              attributes: ["id", "name", "price"], // Include only the desired attributes
+            },
+          ],
+          attributes: ["id", "quantity", "payment_id", "payment_type", "status", "UserId"], // Include Purchase attributes
+        },
       ],
     });
     return todosLosUsuarios;
