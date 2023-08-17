@@ -44,8 +44,10 @@ const postUsers = async (req, res) => {
       <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactar a nuestro equipo de soporte.</p>
       <p>Gracias por elegir ecoWise Commerce. ¡Juntos podemos crear un futuro más verde!</p>
       <p>Saludos cordiales,</p>
-      <p>El Equipo de ecoWise</p>
-    `
+      <p><a href="https://ecowise-web-site.vercel.app/">https://ecowise-web-site.vercel.app/</a></p>
+    
+    `,
+    
     })}};
     if(crearUsuario){
       res.status(200).send("Usuario creado Correctamente");
