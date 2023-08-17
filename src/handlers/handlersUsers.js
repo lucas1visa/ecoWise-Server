@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-const { users, crearUsers, update, delet} = require("../controllers/controllerUsers")
-=======
 const { users, crearUsers, update, delet, getAllUsersAssets, deleteLogicalUser } = require("../controllers/controllerUsers")
 const transporter = require("../utils/mailer")
->>>>>>> parent of 22898e5 (Merge branch 'main' of https://github.com/lucas1visa/ecoWise-Server)
 
 const getUsers = async (req, res) => {
   try {
@@ -29,20 +25,6 @@ const getUsers = async (req, res) => {
 const postUsers = async (req, res) => {
   const { name, surname, email, phone, password, register } = req.body;
   try {
-<<<<<<< HEAD
-    const crearUsuario = await crearUsers(name, surname, email, phone, password)
-    res.status(200).send("Usuario creado Correctamente")
-  } catch (error) {
-    res.status(500).send("Error: " + error.message)
-  }
-}
-
-const postUserAddress = async (req, res) => {
-  const { address1, address2, number, door, city, province, country, postalCode } = req.body
-  try {
-    const crearAddress = await crearAddress(address1, address2, number, door, city, province, country, postalCode)
-    res.status(200).send("Usuario creado Correctamente")
-=======
     const crearUsuario = await crearUsers(name, surname, email, phone, password, register);
     // Send an email after creating a user
     if(email){
@@ -62,17 +44,14 @@ const postUserAddress = async (req, res) => {
       <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactar a nuestro equipo de soporte.</p>
       <p>Gracias por elegir ecoWise Commerce. ¡Juntos podemos crear un futuro más verde!</p>
       <p>Saludos cordiales,</p>
-      <p><a href="https://ecowise-web-site.vercel.app/">https://ecowise-web-site.vercel.app/</a></p>
-    
-    `,
-    
+      <p>El Equipo de ecoWise</p>
+    `
     })}};
     if(crearUsuario){
       res.status(200).send("Usuario creado Correctamente");
     } else {
       throw new Error('Error al registrarse');
     }
->>>>>>> parent of 22898e5 (Merge branch 'main' of https://github.com/lucas1visa/ecoWise-Server)
   } catch (error) {
     res.status(500).send("Error: " + error.message);
   }
@@ -117,8 +96,4 @@ const todosLosUsuariosActivos = async (req, res) => {
   }
 }
 
-<<<<<<< HEAD
-module.exports = { getUsers, postUsers, putUsers, deleteUsers}
-=======
 module.exports = { getUsers, postUsers, putUsers, deleteUsers, deleteLogical, todosLosUsuariosActivos }
->>>>>>> parent of 22898e5 (Merge branch 'main' of https://github.com/lucas1visa/ecoWise-Server)
