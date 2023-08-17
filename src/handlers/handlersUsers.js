@@ -1,5 +1,4 @@
-const { users, crearUsers, update, delet, getAllUsersAssets, deleteLogicalUser } = require("../controllers/controllerUsers")
-const transporter = require("../utils/mailer")
+const { users, crearUsers, update, delet, crearAddress } = require("../controllers/controllerUsers")
 
 const getUsers = async (req, res) => {
   try {
@@ -20,10 +19,8 @@ const getUsers = async (req, res) => {
   }
 };
 
-
-// funcion que permite crear un usuario desde el formulario de la web
 const postUsers = async (req, res) => {
-  const { name, surname, email, phone, password, register } = req.body;
+  const { name, surname, email, phone, password } = req.body
   try {
     const crearUsuario = await crearUsers(name, surname, email, phone, password, register);
     // Send an email after creating a user
@@ -44,10 +41,8 @@ const postUsers = async (req, res) => {
       <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactar a nuestro equipo de soporte.</p>
       <p>Gracias por elegir ecoWise Commerce. ¡Juntos podemos crear un futuro más verde!</p>
       <p>Saludos cordiales,</p>
-      <p><a href="https://ecowise-web-site.vercel.app/">https://ecowise-web-site.vercel.app/</a></p>
-    
-    `,
-    
+      <p>El Equipo de ecoWise</p>
+    `
     })}};
     if(crearUsuario){
       res.status(200).send("Usuario creado Correctamente");
@@ -55,10 +50,9 @@ const postUsers = async (req, res) => {
       throw new Error('Error al registrarse');
     }
   } catch (error) {
-    res.status(500).send("Error: " + error.message);
+    res.status(500).send("Error: " + error.message)
   }
 };
-
 
 const putUsers = async (req, res) => {
   const { password, id } = req.body;
@@ -69,16 +63,6 @@ const putUsers = async (req, res) => {
     res.status(500).send("Hubo un error al actualizar el usuario");
   }
 };
-const deleteLogical = async (req, res) => {
-  const { id } = req.params
-  try {
-    const delUser = await deleteLogicalUser(id)
-
-    res.status(200).send("Usuario bloqueado correctamente");
-  } catch (error) {
-
-  }
-}
 
 const deleteUsers = async (req, res) => {
   const { id } = req.params;
@@ -88,14 +72,6 @@ const deleteUsers = async (req, res) => {
   } catch (error) {
     res.status(500).send('Ocurrio un error al querer eliminar un usuario')
   }
-}
-const todosLosUsuariosActivos = async (req, res) => {
-  const getUsers = await getAllUsersAssets();
-  try {
-    res.status(200).send(getUsers)
-  } catch (error) {
-    res.status(500).send('Ocurrio un error al querer traer todos los usuario')
-  }
-}
+};
 
-module.exports = { getUsers, postUsers, putUsers, deleteUsers, deleteLogical, todosLosUsuariosActivos }
+module.exports = { getUsers, postUsers, putUsers, deleteUsers, postUserAddress }

@@ -1,18 +1,13 @@
 const {Cart,Product} = require("../db");
 
 const getcarrito = async ()=>{
-  try {
-      const productosEnCarrito = await Cart.findAll({
-        include:{
-          model: Product,
-          attributes:['name', 'price', 'quantityAvailable', 'image']
-        }
-      });
-      return productosEnCarrito;
-    } catch (error) {
-      console.error("Error al obtener los Productos del carrito de compras:", error);
-      return null;
-    }
+    try {
+        const productosEnCarrito = await Cart.findAll();
+        return productosEnCarrito;
+      } catch (error) {
+        console.error("Error al obtener los Productos del carrito de compras:", error);
+        return null;
+      }
 }
 
 const crearCart = async (id, UserId, carrito) => {
@@ -66,25 +61,8 @@ const updateCarrito = async (  id, price, quantityAvailable, image)=>{
       }
 }
 
-const deletCart = async (id) => {
-
-  try {
-    const getDeleteCart = await Cart.findByPk(id);
-
-    if (getDeleteCart) {
-      getDeleteCart.destroy();
-      return "Deleted Product Cart";
-    } else {
-      throw Error("Cart Product not found")
-    }
-  } catch (error) {
-    throw error;
-  }
-}
-
 module.exports = {
 getcarrito,
 crearCart,
-updateCarrito,
-deletCart
+updateCarrito
   };

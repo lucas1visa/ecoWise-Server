@@ -1,4 +1,4 @@
-const {getcarrito,crearCart,updateCarrito, deletCart}=require("../controllers/controllersCart")
+const {getcarrito,crearCart,updateCarrito}=require("../controllers/controllersCart")
     const getCart = async (req, res) => {
         try {
             const Carito = await getcarrito()
@@ -29,15 +29,4 @@ const {getcarrito,crearCart,updateCarrito, deletCart}=require("../controllers/co
             res.status(500).send("Hubo un error");
         }
     };
-
-    const deleteProdCart = async (req, res) => {
-        const { id } = req.params;
-        const deleteProdCarrito = await deletCart(id);
-        try {
-            res.status(200).send(`Se elimino el producto con id: ${id} con exito`)
-        } catch (error) {
-            res.status(500).send('Ocurrio un error al querer eliminar el producto del carrito')
-        }
-    }
-
-    module.exports = { putCart,postCart,getCart, deleteProdCart}
+    module.exports = { putCart,postCart,getCart}
