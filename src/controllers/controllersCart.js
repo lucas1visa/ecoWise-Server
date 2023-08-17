@@ -15,13 +15,21 @@ const getcarrito = async ()=>{
     }
 }
 
-const crearCart = async (id,UserId)=>{
+const crearCart = async (id,UserId,carrito)=>{
     try {
+      if(id){
     const nuevoProductoCarrito = await Cart.create({
         UserId
       });
       await nuevoProductoCarrito.setProducts(id)
-      return nuevoProductoCarrito;
+      return nuevoProductoCarrito;}
+      const nuevoCarrito = await Cart.create({
+        UserId
+      })
+      carrito.forEach(async (producto) => {
+        await nuevoCarrito.setProducts(producto.id)
+      });
+      return nuevoCarrito
     } catch (error) {
       console.error("Error el producto al carrito de compras:", error);
       return null;
