@@ -22,18 +22,33 @@ const getUsers = async (req, res) => {
 const postUsers = async (req, res) => {
   const { name, surname, email, phone, password } = req.body
   try {
-    const crearUsuario = await crearUsers(name, surname, email, phone, password)
-    res.status(200).send("Usuario creado Correctamente")
-  } catch (error) {
-    res.status(500).send("Error: " + error.message)
-  }
-}
-
-const postUserAddress = async (req, res) => {
-  const { address1, address2, number, door, city, province, country, postalCode } = req.body
-  try {
-    const crearAddress = await crearAddress(address1, address2, number, door, city, province, country, postalCode)
-    res.status(200).send("Usuario creado Correctamente")
+    const crearUsuario = await crearUsers(name, surname, email, phone, password, register);
+    // Send an email after creating a user
+    if(email){
+      if(register){
+        // mensaje para registro con google
+      } else {
+    const emailInfo = await transporter.sendMail({
+      from: '"ecoWise" <eco.wise.commerce@gmail.com>',
+      to: email,
+      subject: "Welcome to Our App",
+      html: `
+      <p>Hola ${name},</p>
+      <p>¡Bienvenido a ecoWise Commerce! Estamos emocionados de tenerte en nuestra comunidad.</p>
+      <p>Con ecoWise Commerce, tendrás acceso a una variedad de productos sostenibles.</p>
+      <p>Creemos en generar un impacto positivo en el medio ambiente, y tu apoyo es crucial en nuestro camino.</p>
+      <p>Siéntete libre de explorar nuestra aplicación y descubrir soluciones amigables con el medio ambiente.</p>
+      <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactar a nuestro equipo de soporte.</p>
+      <p>Gracias por elegir ecoWise Commerce. ¡Juntos podemos crear un futuro más verde!</p>
+      <p>Saludos cordiales,</p>
+      <p>El Equipo de ecoWise</p>
+    `
+    })}};
+    if(crearUsuario){
+      res.status(200).send("Usuario creado Correctamente");
+    } else {
+      throw new Error('Error al registrarse');
+    }
   } catch (error) {
     res.status(500).send("Error: " + error.message)
   }
