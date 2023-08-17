@@ -1,4 +1,4 @@
-const { users, crearUsers, update, delet, crearAddress } = require("../controllers/controllerUsers")
+const { users, crearUsers, update, delet} = require("../controllers/controllerUsers")
 
 const getUsers = async (req, res) => {
   try {
@@ -59,4 +59,4 @@ const deleteUsers = async (req, res) => {
   }
 };
 
-module.exports = { getUsers, postUsers, putUsers, deleteUsers, postUserAddress }
+module.exports = { getUsers, postUsers, putUsers, deleteUsers}
