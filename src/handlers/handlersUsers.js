@@ -28,6 +28,9 @@ const postUsers = async (req, res) => {
     const crearUsuario = await crearUsers(name, surname, email, phone, password, register);
     // Send an email after creating a user
     if(email){
+      if(register){
+        // mensaje para registro con google
+      } else {
     const emailInfo = await transporter.sendMail({
       from: '"ecoWise" <eco.wise.commerce@gmail.com>',
       to: email,
@@ -43,7 +46,7 @@ const postUsers = async (req, res) => {
       <p>Saludos cordiales,</p>
       <p>El Equipo de ecoWise</p>
     `
-    })};
+    })}};
     if(crearUsuario){
       res.status(200).send("Usuario creado Correctamente");
     } else {
