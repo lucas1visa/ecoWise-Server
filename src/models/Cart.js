@@ -6,11 +6,6 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey:true,
-      },
-        quantityAvailable: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            defaultValue: 0,
-          }
+      }
 },{
 timestamps: false,})};

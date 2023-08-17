@@ -92,6 +92,7 @@ const getProductById = async (req, res) => {
     }
 }
 
+
 const getProductByCategory = async (req, res) => {
     try {
         const { category } = req.query;

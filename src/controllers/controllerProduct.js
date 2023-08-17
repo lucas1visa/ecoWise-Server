@@ -127,6 +127,7 @@ const searchProductByCategory = async (category) => {
 }
 
 
+
 module.exports = {
   products,
   crearProducts,

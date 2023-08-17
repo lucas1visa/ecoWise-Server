@@ -15,10 +15,9 @@ const getcarrito = async ()=>{
     }
 }
 
-const crearCart = async (id,quantityAvailable,UserId)=>{
+const crearCart = async (id,UserId)=>{
     try {
     const nuevoProductoCarrito = await Cart.create({
-        quantityAvailable,
         UserId
       });
       await nuevoProductoCarrito.setProducts(id)
