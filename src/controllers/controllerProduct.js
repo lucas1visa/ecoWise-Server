@@ -65,18 +65,15 @@ const crearProductsAdmin = async (
 
 const updateProducts = async (
   id,
-  description,
   price,
   quantityAvailable,
-  image
+
 ) => {
   try {
     const fullUpdate = await Product.update(
       {
-        description: description,
         price: price,
         quantityAvailable: quantityAvailable,
-        image: image,
       },
       {
         where: {
