@@ -1,4 +1,4 @@
-const { User,Cart,Product,Favorite } = require("../db");
+const { User, Cart, Product, Favorite, UserAddress } = require("../db");
 const bcrypt = require("bcrypt")
 
 const users = async () => {
@@ -37,7 +37,6 @@ const getUserById = async (userId) => {
   }
 };
 
-
 const crearUsers = async (name, surname, email, phone, password) => {
   try {
     // una vez recibida la password al crear el usuario la encryptamos para almacenarla en la DB
@@ -60,6 +59,26 @@ const crearUsers = async (name, surname, email, phone, password) => {
     return null;
   }
 };
+
+const crearAddress = async (address1, address2, number, door, city, province, country, postalCode) => {
+  try {
+    const nuevoAddress = await UserAddress.create({
+      address1,
+      address2,
+      number,
+      door,
+      city,
+      province,
+      country,
+      postalCode,
+    });
+    return nuevoAddress;
+  } catch (error) {
+    console.error("Error en la Dirección:", error);
+    return null;
+  }
+};
+
 const update = async (id, password) => {
   try {
     let hashPassword = bcrypt.hashSync(password, 10)
@@ -92,4 +111,4 @@ const delet = async (id) => {
   }
 }
 
-module.exports = { users, crearUsers, update, delet, getUserById };
+module.exports = { users, crearUsers, crearAddress, update, delet, getUserById };
