@@ -37,20 +37,43 @@ const crearProducts = async (
   }
 };
 
-const updateProducts = async (
-  id,
+const crearProductsAdmin = async (
+  name,
   description,
   price,
   quantityAvailable,
+  category,
   image
+) => {
+  try {
+    const nuevoProductos = await Product.create({
+      name,
+      description,
+      price,
+      quantityAvailable,
+      category,
+      image,
+    });
+
+    return nuevoProductos;
+  } catch (error) {
+    console.error("Error al Registrarse:", error);
+    return null;
+  }
+};
+
+
+const updateProducts = async (
+  id,
+  price,
+  quantityAvailable,
+
 ) => {
   try {
     const fullUpdate = await Product.update(
       {
-        description: description,
         price: price,
         quantityAvailable: quantityAvailable,
-        image: image,
       },
       {
         where: {
@@ -101,6 +124,7 @@ const searchProductByCategory = async (category) => {
 }
 
 
+
 module.exports = {
   products,
   crearProducts,
@@ -108,5 +132,6 @@ module.exports = {
   deletP,
   searchProductByName,
   searchProductById,
-  searchProductByCategory
+  searchProductByCategory,
+  crearProductsAdmin
 };

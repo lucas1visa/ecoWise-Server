@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 const { users, crearUsers, update, delet} = require("../controllers/controllerUsers")
+=======
+const { users, crearUsers, update, delet, getAllUsersAssets, deleteLogicalUser } = require("../controllers/controllerUsers")
+const transporter = require("../utils/mailer")
+>>>>>>> parent of 22898e5 (Merge branch 'main' of https://github.com/lucas1visa/ecoWise-Server)
 
 const getUsers = async (req, res) => {
   try {
@@ -19,9 +24,12 @@ const getUsers = async (req, res) => {
   }
 };
 
+
+// funcion que permite crear un usuario desde el formulario de la web
 const postUsers = async (req, res) => {
-  const { name, surname, email, phone, password } = req.body
+  const { name, surname, email, phone, password, register } = req.body;
   try {
+<<<<<<< HEAD
     const crearUsuario = await crearUsers(name, surname, email, phone, password)
     res.status(200).send("Usuario creado Correctamente")
   } catch (error) {
@@ -34,10 +42,42 @@ const postUserAddress = async (req, res) => {
   try {
     const crearAddress = await crearAddress(address1, address2, number, door, city, province, country, postalCode)
     res.status(200).send("Usuario creado Correctamente")
+=======
+    const crearUsuario = await crearUsers(name, surname, email, phone, password, register);
+    // Send an email after creating a user
+    if(email){
+      if(register){
+        // mensaje para registro con google
+      } else {
+    const emailInfo = await transporter.sendMail({
+      from: '"ecoWise" <eco.wise.commerce@gmail.com>',
+      to: email,
+      subject: "Welcome to Our App",
+      html: `
+      <p>Hola ${name},</p>
+      <p>¡Bienvenido a ecoWise Commerce! Estamos emocionados de tenerte en nuestra comunidad.</p>
+      <p>Con ecoWise Commerce, tendrás acceso a una variedad de productos sostenibles.</p>
+      <p>Creemos en generar un impacto positivo en el medio ambiente, y tu apoyo es crucial en nuestro camino.</p>
+      <p>Siéntete libre de explorar nuestra aplicación y descubrir soluciones amigables con el medio ambiente.</p>
+      <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactar a nuestro equipo de soporte.</p>
+      <p>Gracias por elegir ecoWise Commerce. ¡Juntos podemos crear un futuro más verde!</p>
+      <p>Saludos cordiales,</p>
+      <p><a href="https://ecowise-web-site.vercel.app/">https://ecowise-web-site.vercel.app/</a></p>
+    
+    `,
+    
+    })}};
+    if(crearUsuario){
+      res.status(200).send("Usuario creado Correctamente");
+    } else {
+      throw new Error('Error al registrarse');
+    }
+>>>>>>> parent of 22898e5 (Merge branch 'main' of https://github.com/lucas1visa/ecoWise-Server)
   } catch (error) {
-    res.status(500).send("Error: " + error.message)
+    res.status(500).send("Error: " + error.message);
   }
 };
+
 
 const putUsers = async (req, res) => {
   const { password, id } = req.body;
@@ -48,6 +88,16 @@ const putUsers = async (req, res) => {
     res.status(500).send("Hubo un error al actualizar el usuario");
   }
 };
+const deleteLogical = async (req, res) => {
+  const { id } = req.params
+  try {
+    const delUser = await deleteLogicalUser(id)
+
+    res.status(200).send("Usuario bloqueado correctamente");
+  } catch (error) {
+
+  }
+}
 
 const deleteUsers = async (req, res) => {
   const { id } = req.params;
@@ -57,6 +107,18 @@ const deleteUsers = async (req, res) => {
   } catch (error) {
     res.status(500).send('Ocurrio un error al querer eliminar un usuario')
   }
-};
+}
+const todosLosUsuariosActivos = async (req, res) => {
+  const getUsers = await getAllUsersAssets();
+  try {
+    res.status(200).send(getUsers)
+  } catch (error) {
+    res.status(500).send('Ocurrio un error al querer traer todos los usuario')
+  }
+}
 
+<<<<<<< HEAD
 module.exports = { getUsers, postUsers, putUsers, deleteUsers}
+=======
+module.exports = { getUsers, postUsers, putUsers, deleteUsers, deleteLogical, todosLosUsuariosActivos }
+>>>>>>> parent of 22898e5 (Merge branch 'main' of https://github.com/lucas1visa/ecoWise-Server)
