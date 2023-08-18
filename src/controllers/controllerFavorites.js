@@ -25,17 +25,19 @@ const delFav = async(name)=>{
     }
 }
 
-const getFav = async()=>{
+const getFav = async ()=>{
     try {
-        let foundAllFav = await Favorite.findAll()
-        if(foundAllFav===null){
-            throw new Error('Not have Favorites')
-        }else{
-            return foundAllFav;
-        }
-    } catch (error) {
-        return error;
-    }
-}
+        const productosEnFavorito = await Favorite.findAll({
+          include:{
+            model: Product,
+            attributes:['name', 'price', 'description', 'image',"id"]
+          }
+        });
+        return productosEnFavorito;
+      } catch (error) {
+        console.error("Error al obtener los Productos del favorito:", error);
+        return null;
+      }
+  }
 
 module.exports = {createFav,delFav,getFav};
