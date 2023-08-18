@@ -1,6 +1,7 @@
 const {Favorite, Product} = require("../db")
 
 const createFav = async(id,UserId)=>{
+    console.log('userId: '+UserId)
     try {
         const newFavorite = await Favorite.create({UserId})
         await newFavorite.setProducts(id)
