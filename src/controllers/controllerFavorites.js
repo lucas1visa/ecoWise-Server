@@ -1,15 +1,23 @@
 const {Favorite, Product} = require("../db")
 
-const createFav = async(id,UserId)=>{
-    console.log('userId: '+UserId)
+const createFav = async (id, UserId, favorito) => {
     try {
-        const newFavorite = await Favorite.create({UserId})
-        await newFavorite.setProducts(id)
-        return newFavorite
+      if (id) {
+        const newProductFavorite = await Favorite.create({
+          UserId,
+        });
+        await newProductFavorite.setProducts(id);
+        return newProductFavorite;
+      }
+      const newFavorite = await Favorite.create({ UserId });
+      favorito.forEach(async (producto) => {
+        await newFavorite.setProducts(producto.id);
+      });
+      return newFavorite;
     } catch (error) {
-        return error;
+      return error;
     }
-};
+  };
 
 const delFav = async(name)=>{
     try {
