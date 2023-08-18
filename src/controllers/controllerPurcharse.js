@@ -1,6 +1,5 @@
-const { Purchase, Product } = require("../db");
+const { Purchase, Product,Users } = require("../db");
 const postPay = async (payment_id, payment_type, status, userId, quantity, idProduct) => {
-    console.log(userId)
   try {
     const product = await Product.findByPk(idProduct);
 

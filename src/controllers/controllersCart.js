@@ -17,17 +17,19 @@ const getcarrito = async ()=>{
 
 const crearCart = async (id,UserId,carrito)=>{
     try {
-      if(id){
+      if(id){//tengo un solo id de producto? // if para un solo registro
     const nuevoProductoCarrito = await Cart.create({
         UserId
       });
       await nuevoProductoCarrito.setProducts(id)
-      return nuevoProductoCarrito;}
+      return nuevoProductoCarrito
+    }
+    //caso de multiples registros
       const nuevoCarrito = await Cart.create({
         UserId
       })
-      carrito.forEach(async (producto) => {
-        await nuevoCarrito.setProducts(producto.id)
+      carrito.forEach(async (producto) => {//iterar [{info.id},{info.id}]
+        await nuevoCarrito.setProducts(producto.id)//relacionar multiples productos con mi carrito
       });
       return nuevoCarrito
     } catch (error) {
