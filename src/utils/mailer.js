@@ -16,5 +16,23 @@ const transporter = nodemailer.createTransport({
 transporter.verify().then(() => {
     console.log('Ready for send emails');
 })
+const sendPurchaseConfirmationEmail = async (emailUser) => {
+  try {
+    const mailOptions = {
+      from: 'eco.wise.commerce@gmail.com',
+      to:emailUser,
+      subject: 'Compra exitosa',
+      text: `¡Gracias por tu compra!`
+    };
 
-module.exports = transporter;
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Purchase confirmation email sent:", info.response);
+  } catch (error) {
+    console.error("Error sending purchase confirmation email:", error);
+  }
+};
+
+module.exports = {
+  transporter,
+  sendPurchaseConfirmationEmail
+};
