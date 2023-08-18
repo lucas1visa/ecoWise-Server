@@ -1,4 +1,4 @@
-const { users, crearUsers, update, delet, getAllUsersAssets, deleteLogicalUser } = require("../controllers/controllerUsers")
+const { users, crearUsers, changeUser, update, delet, getAllUsersAssets, deleteLogicalUser } = require("../controllers/controllerUsers")
 const transporter = require("../utils/mailer")
 
 const getUsers = async (req, res) => {
@@ -23,9 +23,9 @@ const getUsers = async (req, res) => {
 
 // funcion que permite crear un usuario desde el formulario de la web
 const postUsers = async (req, res) => {
-  const { name, surname, email, phone, password, register } = req.body;
+  const { name, surname, email, phone, password, register, address1, address2, number, door, city, province, country, postalCode } = req.body;
   try {
-    const crearUsuario = await crearUsers(name, surname, email, phone, password, register);
+    const crearUsuario = await crearUsers(name, surname, email, phone, password, register, address1, address2, number, door, city, province, country, postalCode);
     // Send an email after creating a user
     if(email){
       if(register){
@@ -58,6 +58,15 @@ const postUsers = async (req, res) => {
   }
 };
 
+const putUserData = async (req, res) => {
+  const { phone, password, address1, address2, number, door, city, province, country, postalCode } = req.body
+  try {
+    const cambiaUsuario = await changeUser(phone, password, address1, address2, number, door, city, province, country, postalCode)
+    res.status(200).send("Usuario modificado Correctamente")
+  } catch (error) {
+    res.status(500).send("Error: " + error.message)
+  }
+}
 
 const putUsers = async (req, res) => {
   const { password, id } = req.body;
@@ -97,4 +106,4 @@ const todosLosUsuariosActivos = async (req, res) => {
   }
 }
 
-module.exports = { getUsers, postUsers, putUsers, deleteUsers, deleteLogical, todosLosUsuariosActivos }
+module.exports = { getUsers, postUsers, putUsers, deleteUsers, deleteLogical, todosLosUsuariosActivos, putUserData }

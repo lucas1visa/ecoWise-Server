@@ -48,7 +48,7 @@ const getUserById = async (userId) => {
 };
 
 
-const crearUsers = async (name, surname, email, phone, password, register) => {
+const crearUsers = async (name, surname, email, phone, password, register, address1, address2, number, door, city, province, country, postalCode) => {
   try {
     // Realizamos la validacion de que 2 usuarios no tengan el mismo email
     const emailFound = await User.findOne({ where: {email: email } });
@@ -64,6 +64,14 @@ const crearUsers = async (name, surname, email, phone, password, register) => {
         email,
         phone,
         password: hashPassword,
+        address1,
+        address2,
+        number,
+        door,
+        city,
+        province,
+        country,
+        postalCode,
       });
       return nuevoUsuario;
     } else {
@@ -81,6 +89,30 @@ const crearUsers = async (name, surname, email, phone, password, register) => {
     return null;
   }
 };
+const changeUser = async (phone, password, address1, address2, number, door, city, province, country, postalCode) => {
+  try {
+    const cambiaUser = await UserProfile.update({
+      // name,
+      // surname,
+      // email,
+      phone,
+      password: hashPassword,
+      address1,
+      address2,
+      number,
+      door,
+      city,
+      province,
+      country,
+      postalCode,
+    });
+    return cambiaUser;
+  } catch (error) {
+    console.error("Error en la Dirección:", error);
+    return null;
+  }
+};
+
 const update = async (id, password) => {
   try {
     let hashPassword = bcrypt.hashSync(password, 10)
@@ -126,4 +158,4 @@ const  getAllUsersAssets= async() =>{//consulta de usuarios activos
   });
   return users;
 }
-module.exports = { users, crearUsers, update, delet, getUserById,deleteLogicalUser,getAllUsersAssets };
+module.exports = { users, crearUsers, changeUser, update, delet, getUserById,deleteLogicalUser,getAllUsersAssets };
