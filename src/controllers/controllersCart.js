@@ -5,7 +5,7 @@ const getcarrito = async ()=>{
       const productosEnCarrito = await Cart.findAll({
         include:{
           model: Product,
-          attributes:['name', 'price', 'quantityAvailable', 'image']
+          attributes:['name', 'price', 'quantityAvailable', 'image',"id"]
         }
       });
       return productosEnCarrito;
