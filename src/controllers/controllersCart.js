@@ -59,16 +59,25 @@ const updateCarrito = async (  id, price, quantityAvailable, image)=>{
       }
 }
 
-const deletCart = async (id) => {
+const deletCart = async (idProduct,UserId) => {
 
   try {
-    const getDeleteCart = await Cart.findByPk(id);
-
-    if (getDeleteCart) {
-      getDeleteCart.destroy();
-      return "Deleted Product Cart";
+    let foundCart = await Cart.findOne({
+      where: {
+        UserId: UserId,
+      },
+      include: {
+        model: Product,
+        where: {
+          id: idProduct,
+        },
+      },
+    });
+    if (foundCart) {
+      await foundCart.destroy()
+      return "eliminao";
     } else {
-      throw Error("Cart Product not found")
+      throw new Error("no eliminao");
     }
   } catch (error) {
     throw error;

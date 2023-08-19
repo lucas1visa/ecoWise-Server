@@ -30,8 +30,9 @@ const {getcarrito,crearCart,updateCarrito, deletCart}=require("../controllers/co
     };
 
     const deleteProdCart = async (req, res) => {
-        const { id } = req.params;
-        const deleteProdCarrito = await deletCart(id);
+        let {id,UserId} = req.body;
+
+        const deleteProdCarrito = await deletCart(id,UserId);
         try {
             res.status(200).send(`Se elimino el producto con id: ${id} con exito`)
         } catch (error) {
