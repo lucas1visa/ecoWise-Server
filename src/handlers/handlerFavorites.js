@@ -15,8 +15,7 @@ const addFavorites = async(req,res)=>{
 
 const getFavorites = async(req,res) =>{
     try {
-        let allFavorites = await getFav();
-        res.status(200).json(allFavorites);
+        res.status(200).json(getFav());
     } catch (error) {
         res.status(400).json({error:error.message})
     }
