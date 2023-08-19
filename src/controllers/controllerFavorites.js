@@ -19,19 +19,30 @@ const createFav = async (id, UserId, favorito) => {
     }
   };
 
-const delFav = async(name)=>{
+  const delFav = async (idProduct, UserId) => {
     try {
-        let foundFav = await Favorite.findOne({where: {name: name}});
-        if(foundFav){
-            let Favdelete = await foundFav.destroy()
-            return "Favorite Delete with success";
-        }else{
-            throw new Error("Favorite not found")
-        }
+      let foundFav = await Favorite.findOne({
+        where: {
+          UserId: UserId,//modelo FAVORITO UserId === UserId
+        },
+        include: {
+          model: Product,
+          where: {
+            id: idProduct,
+          },
+        },
+      });
+      if (foundFav) {
+        await foundFav.destroy()
+        return "eliminao";
+      } else {
+        throw new Error("no eliminao");
+      }
     } catch (error) {
-        return error;
+      return error;
     }
-}
+  };
+  
 
 const getFav = async ()=>{
     try {
