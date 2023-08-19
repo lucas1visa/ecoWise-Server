@@ -2,8 +2,9 @@ const {createFav,delFav,getFav} = require("../controllers/controllerFavorites")
 
 const addFavorites = async(req,res)=>{
     try {
-        let {id,UserId} = req.body;
-        let newFav = await createFav(id,UserId);
+        let {id,UserId,favorito} = req.body;
+       
+        let newFav = await createFav(id,UserId,favorito);
         if(newFav){
            return res.status(200).send(`Favorites Add+${newFav}`)
         }
@@ -15,7 +16,8 @@ const addFavorites = async(req,res)=>{
 
 const getFavorites = async(req,res) =>{
     try {
-        res.status(200).json(getFav());
+        todosLosFavoritos = await getFav()
+        res.status(200).json(todosLosFavoritos);
     } catch (error) {
         res.status(400).json({error:error.message})
     }
