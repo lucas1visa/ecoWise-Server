@@ -6,7 +6,7 @@ const routesCart = Router();
 routesCart.get("/",getCart)
 routesCart.post("/",postCart)
 routesCart.put("/",putCart)
-routesCart.delete("/delete/:id", deleteProdCart)
+routesCart.delete("/delete", deleteProdCart)
 
 
 
