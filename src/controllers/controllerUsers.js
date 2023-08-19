@@ -52,9 +52,11 @@ const crearUsers = async (name, surname, email, phone, password, register, addre
   try {
     // Realizamos la validacion de que 2 usuarios no tengan el mismo email
     const emailFound = await User.findOne({ where: {email: email } });
+    console.log(email);
     if (emailFound) {
       throw new Error('Email already exist');
     };
+    console.log(password);
     if(password){
       // una vez recibida la password al crear el usuario la encryptamos para almacenarla en la DB
       let hashPassword = bcrypt.hashSync(password, 10);
