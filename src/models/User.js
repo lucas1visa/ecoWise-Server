@@ -17,53 +17,54 @@ module.exports = (sequelize) => {
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
       unique: true,
     },
     phone: {
       type: DataTypes.STRING,
-      allowNull: false,
       unique: true,
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     address1: {
       type: DataTypes.STRING,
-      allowNull: false,
+      defaultValue: "-",
     },
     address2: {
       type: DataTypes.STRING,
-      allowNull: true,
+      defaultValue: "-",
     },
     number: {
       type: DataTypes.STRING,
-      allowNull: false,
+      defaultValue: "-",
     },
     door: {
       type: DataTypes.STRING,
-      allowNull: false,
+      defaultValue: "-",
     },
     city: {
       type: DataTypes.STRING,
-      allowNull: false,
+      defaultValue: "-",
     },
     province: {
       type: DataTypes.STRING,
-      allowNull: false,
+      defaultValue: "-",
     },
     country: {
       type: DataTypes.STRING,
-      allowNull: false,
+      defaultValue: "-",
     },
     postalCode: {
       type: DataTypes.STRING,
-      allowNull: false,
+      defaultValue: "-",
     },
     isAdmin: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      defaultValue: false
     },
+    register:{
+      type: DataTypes.STRING,
+      defaultValue: "ecoWiseDB"
+    }
   });
 };
