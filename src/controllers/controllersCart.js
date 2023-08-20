@@ -73,12 +73,8 @@ const deletCart = async (idProduct,UserId) => {
         },
       },
     });
-    if (foundCart) {
       await foundCart.destroy()
       return "eliminao";
-    } else {
-      throw new Error("no eliminao");
-    }
   } catch (error) {
     throw error;
   }
