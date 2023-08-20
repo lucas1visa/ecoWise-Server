@@ -29,42 +29,51 @@ module.exports = (sequelize) => {
     address1: {
       type: DataTypes.STRING,
       defaultValue: "-",
+      
     },
     address2: {
       type: DataTypes.STRING,
       defaultValue: "-",
+      
     },
     number: {
       type: DataTypes.STRING,
       defaultValue: "-",
+      
     },
     door: {
       type: DataTypes.STRING,
       defaultValue: "-",
+      
     },
     city: {
       type: DataTypes.STRING,
       defaultValue: "-",
+      
     },
     province: {
       type: DataTypes.STRING,
       defaultValue: "-",
+      
     },
     country: {
       type: DataTypes.STRING,
       defaultValue: "-",
+      
     },
     postalCode: {
       type: DataTypes.STRING,
       defaultValue: "-",
+      
     },
     isAdmin: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false
+      defaultValue: false,
     },
     register:{
       type: DataTypes.STRING,
-      defaultValue: "ecoWiseDB"
+      defaultValue: "ecoWiseDB",
+      
     },
     isDeleted:{
       type: DataTypes.BOOLEAN,

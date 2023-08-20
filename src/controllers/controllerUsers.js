@@ -48,7 +48,7 @@ const getUserById = async (userId) => {
 };
 
 
-const crearUsers = async (name, surname, email, phone, password, register, address1, address2, number, door, city, province, country, postalCode) => {
+const crearUsers = async (name, surname, email, phone, password, register) => {
   try {
     // Realizamos la validacion de que 2 usuarios no tengan el mismo email
     const emailFound = await User.findOne({ where: {email: email } });
@@ -66,14 +66,7 @@ const crearUsers = async (name, surname, email, phone, password, register, addre
         email,
         phone,
         password: hashPassword,
-        address1,
-        address2,
-        number,
-        door,
-        city,
-        province,
-        country,
-        postalCode,
+        
       });
       return nuevoUsuario;
     } else {
