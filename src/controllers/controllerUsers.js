@@ -113,7 +113,7 @@ const changeUser = async (phone, password, address1, address2, number, door, cit
     console.error("Error en la Dirección:", error);
     return null;
   }
-};
+}
 
 const update = async (id, password) => {
   try {

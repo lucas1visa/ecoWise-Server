@@ -1,4 +1,4 @@
-const { users, crearUsers, changeUser, update, delet, getAllUsersAssets, deleteLogicalUser } = require("../controllers/controllerUsers")
+const { users, crearUsers, changeUser, update, delet, getAllUsersAssets, deleteLogicalUser,getUserById } = require("../controllers/controllerUsers")
 const transporter = require("../utils/mailer")
 
 const getUsers = async (req, res) => {
@@ -105,5 +105,8 @@ const todosLosUsuariosActivos = async (req, res) => {
     res.status(500).send('Ocurrio un error al querer traer todos los usuario')
   }
 }
+
+
+
 
 module.exports = { getUsers, postUsers, putUsers, deleteUsers, deleteLogical, todosLosUsuariosActivos, putUserData }
