@@ -40,8 +40,35 @@ const sendPurchaseConfirmationEmail = async (emailUser) => {
         console.error("Error sending purchase confirmation email:", error);
     }
 };
+const sendWelcomeEmail = async (email, name) => {
+    try {
+        const mailOptions = {
+            from: '"ecoWise" <eco.wise.commerce@gmail.com>',
+            to: email,
+            subject: "¡Bienvenido a ecoWise Commerce!",
+            html: `
+            <p>Hola ${name},</p>
+            <p>¡Bienvenido a ecoWise Commerce! Estamos emocionados de tenerte en nuestra comunidad.</p>
+            <p>Con ecoWise Commerce, tendrás acceso a una variedad de productos sostenibles.</p>
+            <p>Creemos en generar un impacto positivo en el medio ambiente, y tu apoyo es crucial en nuestro camino.</p>
+            <p>Siéntete libre de explorar nuestra aplicación y descubrir soluciones amigables con el medio ambiente.</p>
+            <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactar a nuestro equipo de soporte.</p>
+            <p>Gracias por elegir ecoWise Commerce. ¡Juntos podemos crear un futuro más verde!</p>
+            <p>Saludos cordiales,</p>
+            <p>El Equipo de ecoWise</p>
+            <p><a href="https://ecowise-web-site.vercel.app/">https://ecowise-web-site.vercel.app/</a></p>
+          ` 
+        };
+
+        const info = await transporter.sendMail(mailOptions);
+        console.log("Correo de bienvenida enviado:", info.response);
+    } catch (error) {
+        console.error("Error al enviar el correo de bienvenida:", error);
+    }
+};
 
 module.exports = {
     transporter,
-    sendPurchaseConfirmationEmail
+    sendPurchaseConfirmationEmail,
+    sendWelcomeEmail
 };
