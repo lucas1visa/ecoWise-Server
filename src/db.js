@@ -34,7 +34,7 @@ let entries = Object.entries(sequelize.models);// Obtenemos las entradas (claves
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);// Convertimos las claves (nombres de modelos) a un formato donde la primera letra es mayúscula y el resto es minúscula
 sequelize.models = Object.fromEntries(capsEntries);// Convertimos las entradas modificadas nuevamente en un objeto y asignamos este objeto al atributo "models" de la instancia "sequelize
 
-const { User, Sale, Product, Purchase , Category, Favorite, Cart} = sequelize.models;// Obtenemos los modelos de la base de datos (Country y Activity) a través de la instancia de Sequelize "sequelize"
+const { User, Sale, Product, Purchase , Category, Favorite, Cart, Review} = sequelize.models;// Obtenemos los modelos de la base de datos (Country y Activity) a través de la instancia de Sequelize "sequelize"
 
 User.hasMany(Product);// hasMany: de uno a muchos
 User.hasMany(Sale);
@@ -45,6 +45,7 @@ User.hasMany(Favorite);
 Favorite.belongsTo(User);
 User.hasMany(Cart);
 Cart.belongsTo(User)
+Review.belongsTo(User);
 
 Product.belongsToMany(Category, { through: 'Category_Producto' });
 Category.belongsToMany(Product, { through: 'Purchase_Producto' });
@@ -52,6 +53,8 @@ Cart.belongsToMany(Product, { through: 'Cart_Producto' });
 Product.belongsToMany(Cart, { through: 'Cart_Producto' });
 Favorite.belongsToMany(Product, { through: 'Favorite_Producto' });
 Product.belongsToMany(Favorite, { through: 'Favorite_Producto' });
+Review.belongsToMany(Product, { through: 'Review_Producto' });
+Product.belongsToMany(Review, { through: 'Review_Producto' });
 
 Purchase.belongsToMany(Product, { through: "Purchase_Producto", timestamps: false });
 Product.belongsToMany(Purchase, { through: "Purchase_Producto", timestamps: false });
