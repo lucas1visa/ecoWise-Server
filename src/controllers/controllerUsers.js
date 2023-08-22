@@ -66,7 +66,6 @@ const crearUsers = async (name, surname, email, phone, password, register) => {
         email,
         phone,
         password: hashPassword,
-        
       });
       return nuevoUsuario;
     } else {
@@ -157,8 +156,12 @@ const  getAllUsersAssets= async() =>{//consulta de usuarios activos
 
 const getUserByEmail = async (email) => {
   try {
-    const user = await User.findOne({ where: { email } });
-    return user;
+    const user = await User.findOne({ where: { email:email } });
+    if(user){
+      return 'mail en DB nose puede';
+    }else {
+      throw new Error('se encontro mail');
+    }
   } catch (error) {
     console.error("Error al obtener el Usuario por correo electrónico:", error);
     return null;

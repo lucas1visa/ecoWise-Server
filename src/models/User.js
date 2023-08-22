@@ -73,7 +73,6 @@ module.exports = (sequelize) => {
     register:{
       type: DataTypes.STRING,
       defaultValue: "ecoWiseDB",
-      
     },
     isDeleted:{
       type: DataTypes.BOOLEAN,

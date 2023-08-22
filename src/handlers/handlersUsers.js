@@ -1,4 +1,4 @@
-const { users, crearUsers, changeUser, update, delet, getAllUsersAssets, deleteLogicalUser,getUserById } = require("../controllers/controllerUsers")
+const { users, crearUsers, changeUser, update, delet, getAllUsersAssets, deleteLogicalUser,getUserById ,getUserByEmail} = require("../controllers/controllerUsers")
 const { transporter, sendWelcomeEmail } = require("../utils/mailer")
 
 const getUsers = async (req, res) => {
@@ -20,25 +20,29 @@ const getUsers = async (req, res) => {
   }
 };
 
-
+const userMail = async (req,res)=>{
+  try {
+    const {email} = req.body;
+    const foundmail = await getUserByEmail(email);
+    if(foundmail){
+      res.status(200).send(foundmail)
+    }else{
+      throw new Error('este mail esta disponible')
+    }
+  } catch (error) {
+    res.status(400).json({error:error.message})
+  }
+}
 // funcion que permite crear un usuario desde el formulario de la web
 const postUsers = async (req, res) => {
   const { name, surname, email, phone, password, register } = req.body;
+  console.log(name,surname,email,phone,password,register);
   try {
     const crearUsuario = await crearUsers(name, surname, email, phone, password, register);
-
-    // Send an email after creating a user
-    if (email) {
-
-      if (register) {
-        // Mensaje para registro con Google
-        sendWelcomeEmail(email, name);
-      } else {
-        // Llama a la función de envío de correo de bienvenida
-        sendWelcomeEmail(email, name);
-
-        res.status(200).send("Usuario creado correctamente y correo de bienvenida enviado.");
-      }
+    if(crearUsuario){
+      res.status(200).send(crearUsuario)
+      sendWelcomeEmail(email, name);
+      res.status(200).send("Usuario creado correctamente y correo de bienvenida enviado.");
     } else {
       // No se proporcionó correo electrónico
       res.status(400).send("Correo electrónico requerido para enviar el mensaje de bienvenida.");
@@ -99,4 +103,4 @@ const todosLosUsuariosActivos = async (req, res) => {
 
 
 
-module.exports = { getUsers, postUsers, putUsers, deleteUsers, deleteLogical, todosLosUsuariosActivos, putUserData }
+module.exports = { getUsers, postUsers, putUsers, deleteUsers, deleteLogical, todosLosUsuariosActivos, putUserData,userMail }
