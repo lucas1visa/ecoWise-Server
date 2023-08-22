@@ -59,7 +59,7 @@ const updateCarrito = async (  id, price, quantityAvailable, image)=>{
       }
 }
 
-const deletCart = async (idProduct,UserId) => {
+const deletCart = async (idProduct, UserId) => {
 
   try {
     let foundCart = await Cart.findOne({
@@ -73,12 +73,19 @@ const deletCart = async (idProduct,UserId) => {
         },
       },
     });
-      await foundCart.destroy()
-      return "eliminao";
+    
+    if (foundCart) {
+      await foundCart.destroy();
+      return { success: true, message: "El producto fue eliminado del carrito." };
+    } else {
+      return { success: false, message: "El producto no se encontró en el carrito." };
+    }
   } catch (error) {
+    console.error("Error al eliminar el producto del carrito:", error);
     throw error;
   }
 }
+
 
 module.exports = {
 getcarrito,
