@@ -153,4 +153,15 @@ const  getAllUsersAssets= async() =>{//consulta de usuarios activos
   });
   return users;
 }
-module.exports = { users, crearUsers, changeUser, update, delet, getUserById,deleteLogicalUser,getAllUsersAssets };
+
+
+const getUserByEmail = async (email) => {
+  try {
+    const user = await User.findOne({ where: { email } });
+    return user;
+  } catch (error) {
+    console.error("Error al obtener el Usuario por correo electrónico:", error);
+    return null;
+  }
+};
+module.exports = { users, crearUsers, changeUser, update, delet, getUserById,deleteLogicalUser,getAllUsersAssets,getUserByEmail }; 
