@@ -32,6 +32,7 @@ const postUsers = async (req, res) => {
 
       if (register) {
         // Mensaje para registro con Google
+        sendWelcomeEmail(email, name);
       } else {
         // Llama a la función de envío de correo de bienvenida
         sendWelcomeEmail(email, name);
