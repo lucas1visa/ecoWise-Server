@@ -57,6 +57,10 @@ const createRev = async (id, UserId, review, rating, comment) => {
 const getRev = async ()=>{
     try {
         const productosEnReview = await Review.findAll({
+          include:{
+            model: Product,
+            attributes:["id"]
+          }
         });
         return productosEnReview;
       } catch (error) {
