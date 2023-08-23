@@ -44,12 +44,15 @@ const createFav = async (id, UserId, favorito) => {
   };
   
 
-const getFav = async ()=>{
+const getFav = async (UserId)=>{
     try {
         const productosEnFavorito = await Favorite.findAll({
+          where:{
+            UserId:UserId
+          },
           include:{
             model: Product,
-            attributes:['name', 'price', 'description', 'image',"id"]
+            attributes:['name', 'price', 'quantityAvailable', 'image',"id"]
           }
         });
         return productosEnFavorito;

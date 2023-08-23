@@ -6,7 +6,7 @@ const addFavorites = async(req,res)=>{
        
         let newFav = await createFav(id,UserId,favorito);
         if(newFav){
-           return res.status(200).send(`Favorites Add+${newFav}`)
+           return res.status(200).send(newFav)
         }
     } catch (error) {
         res.status(400).json({error: error.message})
@@ -15,8 +15,9 @@ const addFavorites = async(req,res)=>{
 
 
 const getFavorites = async(req,res) =>{
+    const {UserId} = req.query
     try {
-        todosLosFavoritos = await getFav()
+        todosLosFavoritos = await getFav(UserId)
         res.status(200).json(todosLosFavoritos);
     } catch (error) {
         res.status(400).json({error:error.message})

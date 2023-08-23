@@ -2,7 +2,6 @@ const {getcarrito,crearCart,updateCarrito, deletCart}=require("../controllers/co
     const getCart = async (req, res) => {
 
         const {UserId} = req.query
-        console.log(UserId)
         try {
             const Carito = await getcarrito(UserId)
             res.status(200).send(Carito)
