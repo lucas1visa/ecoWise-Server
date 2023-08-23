@@ -1,7 +1,8 @@
 const {getcarrito,crearCart,updateCarrito, deletCart}=require("../controllers/controllersCart")
     const getCart = async (req, res) => {
+        const {UserId} = req.body
         try {
-            const Carito = await getcarrito()
+            const Carito = await getcarrito(UserId)
             res.status(200).send(Carito)
         } catch (error) {
             res.status(500).send(error)

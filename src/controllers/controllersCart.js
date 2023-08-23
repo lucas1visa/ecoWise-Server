@@ -1,8 +1,11 @@
 const {Cart,Product} = require("../db");
 
-const getcarrito = async ()=>{
+const getcarrito = async (UserId)=>{
   try {
-      const productosEnCarrito = await Cart.findAll({
+      const productosEnCarrito = await Cart.findOne({
+        where:{
+          UserId:UserId
+        },
         include:{
           model: Product,
           attributes:['name', 'price', 'quantityAvailable', 'image',"id"]
