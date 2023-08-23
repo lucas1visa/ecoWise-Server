@@ -2,7 +2,7 @@ const {Cart,Product} = require("../db");
 
 const getcarrito = async (UserId)=>{
   try {
-      const productosEnCarrito = await Cart.findOne({
+      const productosEnCarrito = await Cart.findAll({
         where:{
           UserId:UserId
         },
