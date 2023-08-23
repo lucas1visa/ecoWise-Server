@@ -19,6 +19,7 @@ const getUsers = async (req, res) => {
     res.status(500).send(error);
   }
 };
+// ================================================== ENVIA MAIL PARA CAMBIO DE PASSWORD ================================================
 const sendMail = async(req,res) =>{
   try {
     let {email} = req.body;
@@ -33,6 +34,7 @@ const sendMail = async(req,res) =>{
     res.status(400).json({error:error.message});
   }
 }
+// ========================================== BUSCA POR MAIL SI LO ENCUENTRA RETORNA QUE NO SE PUEDE CREAR =============================
 const userMail = async (req,res)=>{
   try {
     const {email} = req.body;
@@ -46,7 +48,7 @@ const userMail = async (req,res)=>{
     res.status(400).json({error:error.message})
   }
 }
-// funcion que permite crear un usuario desde el formulario de la web
+//================================================== CREA UN USUARIO DESDE LA WEB =================================================================
 const postUsers = async (req, res) => {
   const { name, surname, email, phone, password, register } = req.body;
   console.log(name,surname,email,phone,password,register);
@@ -64,7 +66,7 @@ const postUsers = async (req, res) => {
     res.status(500).send("Error: " + error.message);
   }
 };
-
+//============================================================== ACTUALIZA LOS DATOS DEL PERFIL DEL USUARIO =================================================
 const putUserData = async (req, res) => {
   const { phone, password, address1, address2, number, door, city, province, country, postalCode } = req.body
   try {
@@ -74,16 +76,17 @@ const putUserData = async (req, res) => {
     res.status(500).send("Error: " + error.message)
   }
 }
-
+//================================================= ACTUALIZA PASSWORD DE USUARIO ===================================================
 const putUsers = async (req, res) => {
   try {
-    const { password, email } = req.body;
-    const updateUser = await update(email, password);
+    const { password, id } = req.body;
+    const updateUser = await update(id, password);
     res.status(200).send("Usuario actualizado correctamente");
   } catch (error) {
     res.status(500).send("Hubo un error al actualizar el usuario");
   }
 };
+//=====================================================  BORRADO LOGICO DE USUARIO  =======================================================
 const deleteLogical = async (req, res) => {
   const { id } = req.params
   try {
@@ -94,7 +97,7 @@ const deleteLogical = async (req, res) => {
 
   }
 }
-
+//=====================================================  ELIMINA USUARIO DE LA DB =======================================================
 const deleteUsers = async (req, res) => {
   const { id } = req.params;
   const deleteUsers = await delet(id);
@@ -104,6 +107,7 @@ const deleteUsers = async (req, res) => {
     res.status(500).send('Ocurrio un error al querer eliminar un usuario')
   }
 }
+//==============================================  MUESTRA A TODOS LOS USUARIOS QUE NO ESTAN BLOQUEADOS ===================================================
 const todosLosUsuariosActivos = async (req, res) => {
   const getUsers = await getAllUsersAssets();
   try {

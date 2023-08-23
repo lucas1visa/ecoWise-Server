@@ -78,7 +78,7 @@ const sendMailChangePass = async(email,token) =>{
             <p>Queremos comunicarte que nuestro equipo trabaja la seguridad de tu informacion.</p>
             <p>Para ello te recomendamos actualizar(cambiar) la password.</p>
             <p>En el siguiente link te redireccionara para realizar dicha accion.</p>
-            <p><a href="http://localhost:5173/changepassword/${token}">http://localhost:5173/changepassword</a></p>
+            <p><a href="https://ecowise-web-site.vercel.app/changepassword?token=${token}">https://ecowise-web-site.vercel.app/</a></p>
             <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactar a nuestro equipo de soporte.</p>
             <p>Gracias por elegir ecoWise Commerce. ¡Juntos podemos crear un futuro más verde!</p>
             <p>Saludos cordiales,</p>

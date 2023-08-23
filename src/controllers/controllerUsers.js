@@ -52,7 +52,7 @@ const getUserById = async (userId) => {
   }
 };
 
-
+// CREA USUARIOS EN LA DB
 const crearUsers = async (name, surname, email, phone, password, register) => {
   try {
     // Realizamos la validacion de que 2 usuarios no tengan el mismo email
@@ -111,8 +111,8 @@ const changeUser = async (phone, password, address1, address2, number, door, cit
     return null;
   }
 }
-
-const update = async (email, password) => {
+//========================================================== ACTUALIZA PASSWORD Y LA ENCRYPTA ======================================================
+const update = async (id, password) => {
   try {
     // encryptamos la contraseña enviada por front
     let hashPassword = bcrypt.hashSync(password, 10);
@@ -120,7 +120,7 @@ const update = async (email, password) => {
       { password: hashPassword },
       {
         where: {
-          email: email,
+          id: id,
         },
       }
     )
@@ -128,9 +128,8 @@ const update = async (email, password) => {
     return null;
   }
 };
-
+//================================================================  ELIMINA UN USUARIO DE LA DB =============================================================
 const delet = async (id) => {
-
   try {
     const getUsers = await User.findByPk(id);
 
@@ -144,7 +143,7 @@ const delet = async (id) => {
     throw error;
   }
 }
-
+//============================================= ELIMINA UN USUARIO (BORRADO LOGICO) =======================================================
 const deleteLogicalUser= async(userId)=> {//eliminar un usuario
   const user = await User.findByPk(userId);
   if(user.isDeleted){
@@ -152,12 +151,14 @@ const deleteLogicalUser= async(userId)=> {//eliminar un usuario
   }else{
     user.update({ isDeleted: true })}
 }
+//================================================ CONSULTA USUARIOS ACTIVOS =================================================
 const  getAllUsersAssets= async() =>{//consulta de usuarios activos
   const users = await User.findAll({
     where: { isDeleted: false },
   });
   return users;
 }
+//========================================== BUSCA POR EMAIL Y RETORNA EL ID O UN TOKEN ==========================================
 const usermailtoken = async(email) =>{
   try {
     let sendUmail = await User.findOne({where:{email:email}});
@@ -168,8 +169,9 @@ const usermailtoken = async(email) =>{
       };
       // creamos el token
       let tokenPass = jwt.sign(payloadToken, KEYWORD_JWT);
-      // devuelvo token
-      return tokenPass;
+      // devuelvo token, o el ID
+      // return tokenPass;
+      return sendUmail.id;
     }else{
       throw new Error('La solicitud es erronea debido a se registro con otra autenticacion')
     }
@@ -177,7 +179,7 @@ const usermailtoken = async(email) =>{
     return null;
   }
 }
-
+//========================================================= BUSCA SI EL MAIL ESTA REGISTRADO ==============================================================
 const getUserByEmail = async (email) => {
   try {
     const user = await User.findOne({ where: { email:email } });
