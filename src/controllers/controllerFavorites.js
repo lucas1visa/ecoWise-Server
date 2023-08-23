@@ -52,7 +52,7 @@ const getFav = async (UserId)=>{
           },
           include:{
             model: Product,
-            attributes:['name', 'price', 'quantityAvailable', 'image',"id"]
+            attributes:['name', 'price', 'description', 'image',"id",]
           }
         });
         return productosEnFavorito;
