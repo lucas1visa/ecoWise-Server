@@ -1,5 +1,5 @@
-const { users, crearUsers, changeUser, update, delet, getAllUsersAssets, deleteLogicalUser,getUserById ,getUserByEmail} = require("../controllers/controllerUsers")
-const { transporter, sendWelcomeEmail } = require("../utils/mailer")
+const { users, crearUsers, changeUser, update, delet, getAllUsersAssets, deleteLogicalUser,getUserById ,getUserByEmail,usermailtoken} = require("../controllers/controllerUsers")
+const { transporter, sendWelcomeEmail,sendMailChangePass } = require("../utils/mailer")
 
 const getUsers = async (req, res) => {
   try {
@@ -19,7 +19,20 @@ const getUsers = async (req, res) => {
     res.status(500).send(error);
   }
 };
-
+const sendMail = async(req,res) =>{
+  try {
+    let {email} = req.body;
+    let sendUsmail = await usermailtoken(email);
+    if(sendUsmail){
+      res.status(200).send('se envio mail con exito');
+      sendMailChangePass(email, sendUsmail);
+    }else{
+      throw new Error('La solicitud es erronea debido a se registro con otra autenticacion')
+    }
+  } catch (error) {
+    res.status(400).json({error:error.message});
+  }
+}
 const userMail = async (req,res)=>{
   try {
     const {email} = req.body;
@@ -63,9 +76,9 @@ const putUserData = async (req, res) => {
 }
 
 const putUsers = async (req, res) => {
-  const { password, id } = req.body;
-  const updateUser = await update(id, password)
   try {
+    const { password, email } = req.body;
+    const updateUser = await update(email, password);
     res.status(200).send("Usuario actualizado correctamente");
   } catch (error) {
     res.status(500).send("Hubo un error al actualizar el usuario");
@@ -103,4 +116,4 @@ const todosLosUsuariosActivos = async (req, res) => {
 
 
 
-module.exports = { getUsers, postUsers, putUsers, deleteUsers, deleteLogical, todosLosUsuariosActivos, putUserData,userMail }
+module.exports = { getUsers, postUsers, putUsers, deleteUsers, deleteLogical, todosLosUsuariosActivos, putUserData,userMail,sendMail }
