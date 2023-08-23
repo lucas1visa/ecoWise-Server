@@ -66,9 +66,35 @@ const sendWelcomeEmail = async (email, name) => {
         console.error("Error al enviar el correo de bienvenida:", error);
     }
 };
+const sendMailChangePass = async(email,token) =>{
+    try {
+        const mailOptions = {
+            from: '"ecoWise" <eco.wise.commerce@gmail.com>',
+            to: email,
+            subject: "¡Bienvenido a ecoWise Commerce!",
+            html: `
+            <p>Hola Usuario,</p>
+            <p>Hemos registrado tu peticion para recuperar password.</p>
+            <p>Queremos comunicarte que nuestro equipo trabaja la seguridad de tu informacion.</p>
+            <p>Para ello te recomendamos actualizar(cambiar) la password.</p>
+            <p>En el siguiente link te redireccionara para realizar dicha accion.</p>
+            <p><a href="https://ecowise-web-site.vercel.app/changepassword?token=${token}">https://ecowise-web-site.vercel.app/</a></p>
+            <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactar a nuestro equipo de soporte.</p>
+            <p>Gracias por elegir ecoWise Commerce. ¡Juntos podemos crear un futuro más verde!</p>
+            <p>Saludos cordiales,</p>
+            <p>El Equipo de ecoWise</p>
+            ` 
+        };
+        const info = await transporter.sendMail(mailOptions);
+        console.log("Correo de bienvenida enviado:", info.response);
+    } catch (error) {
+    console.error("Error al enviar el correo de bienvenida:", error);
+    }
+}
 
 module.exports = {
     transporter,
     sendPurchaseConfirmationEmail,
-    sendWelcomeEmail
+    sendWelcomeEmail,
+    sendMailChangePass
 };

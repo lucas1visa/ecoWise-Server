@@ -1,5 +1,10 @@
 const { User,Cart,Product,Favorite,Purchase} = require("../db");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
+// instalamos las dependencias para generar tokens (npm install jsonwebtoken)
+const jwt = require("jsonwebtoken");
+// traemos la variable de entorno
+const { KEYWORD_JWT } = process.env;
+
 
 const users = async () => {
   try {
@@ -47,7 +52,7 @@ const getUserById = async (userId) => {
   }
 };
 
-
+// CREA USUARIOS EN LA DB
 const crearUsers = async (name, surname, email, phone, password, register) => {
   try {
     // Realizamos la validacion de que 2 usuarios no tengan el mismo email
@@ -106,10 +111,11 @@ const changeUser = async (phone, password, address1, address2, number, door, cit
     return null;
   }
 }
-
+//========================================================== ACTUALIZA PASSWORD Y LA ENCRYPTA ======================================================
 const update = async (id, password) => {
   try {
-    let hashPassword = bcrypt.hashSync(password, 10)
+    // encryptamos la contraseña enviada por front
+    let hashPassword = bcrypt.hashSync(password, 10);
     const passwordUpdate = await User.update(
       { password: hashPassword },
       {
@@ -119,12 +125,11 @@ const update = async (id, password) => {
       }
     )
   } catch (error) {
-    throw error;
+    return null;
   }
 };
-
+//================================================================  ELIMINA UN USUARIO DE LA DB =============================================================
 const delet = async (id) => {
-
   try {
     const getUsers = await User.findByPk(id);
 
@@ -138,7 +143,7 @@ const delet = async (id) => {
     throw error;
   }
 }
-
+//============================================= ELIMINA UN USUARIO (BORRADO LOGICO) =======================================================
 const deleteLogicalUser= async(userId)=> {//eliminar un usuario
   const user = await User.findByPk(userId);
   if(user.isDeleted){
@@ -146,25 +151,46 @@ const deleteLogicalUser= async(userId)=> {//eliminar un usuario
   }else{
     user.update({ isDeleted: true })}
 }
+//================================================ CONSULTA USUARIOS ACTIVOS =================================================
 const  getAllUsersAssets= async() =>{//consulta de usuarios activos
   const users = await User.findAll({
     where: { isDeleted: false },
   });
   return users;
 }
-
-
+//========================================== BUSCA POR EMAIL Y RETORNA EL ID O UN TOKEN ==========================================
+const usermailtoken = async(email) =>{
+  try {
+    let sendUmail = await User.findOne({where:{email:email}});
+    if(sendUmail.register ==="ecoWiseDB"){
+      // creamos el payload del token
+      let payloadToken = {
+        id: sendUmail.id
+      };
+      // creamos el token
+      let tokenPass = jwt.sign(payloadToken, KEYWORD_JWT);
+      // devuelvo token, o el ID
+      // return tokenPass;
+      return sendUmail.id;
+    }else{
+      throw new Error('La solicitud es erronea debido a se registro con otra autenticacion')
+    }
+  } catch (error) {
+    return null;
+  }
+}
+//========================================================= BUSCA SI EL MAIL ESTA REGISTRADO ==============================================================
 const getUserByEmail = async (email) => {
   try {
     const user = await User.findOne({ where: { email:email } });
     if(user){
       return 'mail en DB nose puede';
     }else {
-      throw new Error('se encontro mail');
+      throw new Error('No se encontro mail');
     }
   } catch (error) {
     console.error("Error al obtener el Usuario por correo electrónico:", error);
     return null;
   }
 };
-module.exports = { users, crearUsers, changeUser, update, delet, getUserById,deleteLogicalUser,getAllUsersAssets,getUserByEmail }; 
+module.exports = { users, crearUsers, changeUser, update, delet, getUserById,deleteLogicalUser,getAllUsersAssets,getUserByEmail,usermailtoken }; 
