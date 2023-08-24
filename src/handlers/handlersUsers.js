@@ -51,13 +51,20 @@ const userMail = async (req,res)=>{
 //================================================== CREA UN USUARIO DESDE LA WEB =================================================================
 const postUsers = async (req, res) => {
   const { name, surname, email, phone, password, register } = req.body;
-  console.log(name,surname,email,phone,password,register);
+  console.log(name, surname, email, phone, password, register);
   try {
     const crearUsuario = await crearUsers(name, surname, email, phone, password, register);
-    if(crearUsuario){
-      res.status(200).send(crearUsuario)
-      sendWelcomeEmail(email, name);
-      res.status(200).send("Usuario creado correctamente y correo de bienvenida enviado.");
+    
+    if (crearUsuario) {
+      if (register.includes('register')) {
+        // Si 'register' está en el valor, enviar correo de bienvenida y redirigir a '/recoverpassword'
+        sendWelcomeEmail(email, name);
+        res.status(200).send("Usuario creado correctamente y correo de bienvenida enviado.");
+      } else {
+        // Si 'register' no está en el valor, solo enviar correo de bienvenida
+        sendWelcomeEmail(email, name);
+        res.status(200).send("Usuario creado correctamente. Correo de bienvenida no enviado.");
+      }
     } else {
       // No se proporcionó correo electrónico
       res.status(400).send("Correo electrónico requerido para enviar el mensaje de bienvenida.");
