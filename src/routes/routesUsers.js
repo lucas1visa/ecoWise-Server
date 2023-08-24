@@ -1,8 +1,9 @@
 const { Router } = require("express");
 const {getUserByEmail} = require("../controllers/controllerUsers")
-const {getUsers,postUsers,putUsers, deleteUsers,deleteLogical,todosLosUsuariosActivos, putUserData,userMail,sendMail} = require("../handlers/handlersUsers")
+const {getUsers,postUsers,putUsers, deleteUsers,deleteLogical,todosLosUsuariosActivos, putUserData,userMail,sendMail, getUsuarioHandler} = require("../handlers/handlersUsers")
 const  routesUsers = Router();
 routesUsers.get("/" , getUsers)
+routesUsers.get("/find/:id" , getUsuarioHandler)
 routesUsers.post("/email", userMail);
 routesUsers.post("/sendmail",sendMail)
 routesUsers.post("/" , postUsers)

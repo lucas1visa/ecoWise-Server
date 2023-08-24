@@ -1,4 +1,4 @@
-const { users, crearUsers, changeUser, update, delet, getAllUsersAssets, deleteLogicalUser,getUserById ,getUserByEmail,usermailtoken} = require("../controllers/controllerUsers")
+const { users, crearUsers, changeUser, update, delet, getAllUsersAssets, deleteLogicalUser,getUserById ,getUserByEmail,usermailtoken, getUserInfo} = require("../controllers/controllerUsers")
 const { transporter, sendWelcomeEmail,sendMailChangePass } = require("../utils/mailer")
 
 const getUsers = async (req, res) => {
@@ -116,8 +116,22 @@ const todosLosUsuariosActivos = async (req, res) => {
     res.status(500).send('Ocurrio un error al querer traer todos los usuario')
   }
 }
+//=========================================================================================================================================
+
+const getUsuarioHandler = async (req,res)=>{
+  try{
+    const {id} = req.params;
+    let resultfound = await getUserInfo(id);
+    if(resultfound){
+      res.status(200).send(resultfound);
+    }else{
+      throw new Error("No se encontro");
+    }
+  } catch(error){
+    res.status(400).json({error:error.message})
+  }
+}
 
 
 
-
-module.exports = { getUsers, postUsers, putUsers, deleteUsers, deleteLogical, todosLosUsuariosActivos, putUserData,userMail,sendMail }
+module.exports = { getUsers, postUsers, putUsers, deleteUsers, deleteLogical, todosLosUsuariosActivos, putUserData,userMail,sendMail,getUsuarioHandler }

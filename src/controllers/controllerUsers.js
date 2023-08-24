@@ -193,4 +193,17 @@ const getUserByEmail = async (email) => {
     return null;
   }
 };
-module.exports = { users, crearUsers, changeUser, update, delet, getUserById,deleteLogicalUser,getAllUsersAssets,getUserByEmail,usermailtoken }; 
+const getUserInfo = async (userId) => {
+  try {
+    const user = await User.findByPk(userId);
+    if(user){
+      return user;
+    }else{
+      throw new Error('No esta')
+    }
+  } catch (error) {
+    console.error("Error al obtener el Usuario por ID:", error);
+    return null;
+  }
+};
+module.exports = { users, crearUsers, changeUser, update, delet, getUserById,deleteLogicalUser,getAllUsersAssets,getUserByEmail,usermailtoken, getUserInfo } 

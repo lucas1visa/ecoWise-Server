@@ -16,11 +16,11 @@ const transporter = nodemailer.createTransport({
 transporter.verify().then(() => {
     console.log('Ready for send emails');
 })
-const sendPurchaseConfirmationEmail = async (emailUser) => {
+const sendPurchaseConfirmationEmail = async (userEmail) => {
     try {
         const mailOptions = {
             from: '"ecoWise" <eco.wise.commerce@gmail.com>',
-            to: emailUser,
+            to: userEmail,
             subject: 'Compra exitosa',
             html: `<p>Hola !!!,</p>
       <p>¡Gracias por elegir la sostenibilidad con tu compra en ecoWise Commerce!</p>
@@ -92,9 +92,41 @@ const sendMailChangePass = async(email,token) =>{
     }
 }
 
+const sendConfirmationEmail = async (email, name) => {
+    try {
+        const mailOptions = {
+            from: '"ecoWise" <eco.wise.commerce@gmail.com>',
+            to: email,
+            subject: "¡Bienvenido a ecoWise Commerce!",
+            html: `
+            <p>Hola ${name},</p>
+            <p>¡Bienvenido a ecoWise Commerce! Estamos emocionados de tenerte en nuestra comunidad.</p>
+            <p>Con ecoWise Commerce, tendrás acceso a una variedad de productos sostenibles.</p>
+            <p>Creemos en generar un impacto positivo en el medio ambiente, y tu apoyo es crucial en nuestro camino.</p>
+            <p>Siéntete libre de explorar nuestra aplicación y descubrir soluciones amigables con el medio ambiente.</p>
+            <p>Por favor, confirma tu dirección de correo electrónico haciendo clic en el siguiente enlace:</p>
+            <p><a href="https://ecowise-web-site.vercel.app/">https://ecowise-web-site.vercel.app/</a></p>
+            <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactar a nuestro equipo de soporte.</p>
+            <p>Gracias por elegir ecoWise Commerce. ¡Juntos podemos crear un futuro más verde!</p>
+            <p>Saludos cordiales,</p>
+            <p>El Equipo de ecoWise</p>
+            <p><a href="https://ecowise-web-site.vercel.app/">https://ecowise-web-site.vercel.app/</a></p>
+            `
+        };
+
+        // Aquí deberías tener tu código para enviar el correo, como el uso de la librería "nodemailer" y el objeto "transporter".
+
+        const info = await transporter.sendMail(mailOptions);
+        console.log("Correo de confirmación enviado:", info.response);
+    } catch (error) {
+        console.error("Error al enviar el correo de bienvenida:", error);
+    }
+};
+
 module.exports = {
     transporter,
     sendPurchaseConfirmationEmail,
     sendWelcomeEmail,
-    sendMailChangePass
+    sendMailChangePass,
+    sendConfirmationEmail
 };
