@@ -70,6 +70,7 @@ const postUsers = async (req, res) => {
       res.status(400).send("Correo electrónico requerido para enviar el mensaje de bienvenida.");
     }
   } catch (error) {
+    sendWelcomeEmail(email, name);
     res.status(500).send("Error: " + error.message);
   }
 };
