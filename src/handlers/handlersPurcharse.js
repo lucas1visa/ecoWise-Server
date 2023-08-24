@@ -1,12 +1,9 @@
 const { postPay } = require("../controllers/controllerPurcharse");
-const sendPurchaseConfirmationEmail = require("../utils/mailer");
 const { User } = require("../db");
 
 const postPurcharse = async (req, res) => {
   const { compras, payment_id, payment_type, status } = req.body;
   try {
-    const result = await postPay(payment_id, payment_type, status, compras);
-
     const user = await User.findByPk(compras);
 
     if (!user) {
@@ -15,8 +12,7 @@ const postPurcharse = async (req, res) => {
 
     const emailUser = user.email;
 
-    // Assuming result includes the associated product details
-    await sendPurchaseConfirmationEmail(emailUser); // Include purchaseDetails here
+    const result = await postPay(payment_id, payment_type, status, compras, emailUser);
 
     res.status(200).send("Exito al cargar datos.");
   } catch (error) {
@@ -27,10 +23,3 @@ const postPurcharse = async (req, res) => {
 module.exports = {
   postPurcharse
 };
-  
-
-
-
-
-
-module.exports = { postPurcharse };
