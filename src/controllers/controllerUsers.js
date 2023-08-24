@@ -23,7 +23,7 @@ const users = async () => {
           include: [
             {
               model: Product,
-              attributes: ["id", "name", "price"], // Include only the desired attributes
+              attributes: ["id", "name", "price","image"], // Include only the desired attributes
             },
           ],
           attributes: ["id", "quantity", "payment_id", "payment_type", "status", "UserId"], // Include Purchase attributes
