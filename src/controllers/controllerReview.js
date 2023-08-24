@@ -59,7 +59,7 @@ const getRev = async ()=>{
         const productosEnReview = await Review.findAll({
           include:{
             model: Product,
-            attributes:["id"]
+            attributes:["id","image"]
           }
         });
         return productosEnReview;
